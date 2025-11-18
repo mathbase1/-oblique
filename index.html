@@ -76,6 +76,10 @@
     summary::-webkit-details-marker{display:none}
     .hint{padding:0 0.9rem 0.85rem;font-size:1rem;color:#1f2a44}
 
+    /* EXTRA spacing in the refresher formulas (not squashed) */
+    #globalHint .hint ul{margin:0;padding-left:1.2rem;line-height:1.7}
+    #globalHint .hint li{margin:.48rem 0}
+
     /* Inputs */
     .io{display:grid;gap:0.8rem;margin-top:0.5rem}
     .row{display:grid;grid-template-columns:1.2fr auto auto auto 1fr;align-items:center;gap:.6rem}
@@ -172,11 +176,11 @@
       <summary>Quick refresher (formulas)</summary>
       <div class="hint">
         <ul>
-          <li><strong>Sine Rule:</strong> \(\displaystyle \frac{a}{\sin\alpha}=\frac{b}{\sin\beta}=\frac{c}{\sin\gamma}\).</li>
+          <li><strong>Sine Rule:</strong> \(\displaystyle \frac{a}{\sin A}=\frac{b}{\sin B}=\frac{c}{\sin C}\).</li>
           <li><strong>Cosine Rule:</strong> \(\displaystyle
-            a^2=b^2+c^2-2bc\cos\alpha,\quad
-            b^2=c^2+a^2-2ca\cos\beta,\quad
-            c^2=a^2+b^2-2ab\cos\gamma.\)</li>
+            a^2=b^2+c^2-2bc\cos A,\quad
+            b^2=c^2+a^2-2ca\cos B,\quad
+            c^2=a^2+b^2-2ab\cos C.\)</li>
           <li><strong>Rearrange as needed.</strong> Round final answers to <strong>2 dp</strong>.</li>
         </ul>
       </div>
@@ -311,7 +315,8 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   const deg = r=>r*180/Math.PI;
   const rad = d=>d*Math.PI/180;
-  const eq2dp=(a,b)=>isFinite(a)&&isFinite(b)&&round2(a)===round2(b);
+  // accept within ±0.09 (quietly)
+  const within09=(a,b)=>isFinite(a)&&isFinite(b)&&Math.abs(a-b)<=0.09+1e-9;
   const secsToMMSS=s=>{const m=Math.floor(s/60), ss=String(s%60).padStart(2,'0'); return `${m}:${ss}`;};
   const unit = (u) => ({ m:'m', deg:'°' }[u]||u);
   const lines = arr => arr.join('<br>');
@@ -447,7 +452,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const [vx,vy]=V, [v1x,v1y]=V1, [v2x,v2y]=V2;
     const u1x=v1x-vx, u1y=v1y-vy, u2x=v2x-vx, u2y=v2y-vy;
     const L1=Math.hypot(u1x,u1y)||1, L2=Math.hypot(u2x,u2y)||1;
-    let bx=u1x/L1 + u2x/L2, by=u1y/L1 + u2y/L2;
+    let bx=u1x/L1 + u2x/L2, by=u1y/L1 + u2x/L2;
     const bL=Math.hypot(bx,by)||1; bx/=bL; by/=bL;
     const d=28;
     const lx = vx + bx*d, ly = vy + by*d;
@@ -464,9 +469,9 @@ window.addEventListener('DOMContentLoaded', () => {
       <text x="${w/2}" y="30" text-anchor="middle" class="label">${caption}</text>
       <polygon points="${A[0]},${A[1]} ${B[0]},${B[1]} ${C[0]},${C[1]}" class="tri ${triClass}"/>
 
-      ${angleSymbol(A, B, C, 'α')}
-      ${angleSymbol(B, A, C, 'β')}
-      ${angleSymbol(C, A, B, 'γ')}
+      ${angleSymbol(A, B, C, 'A')}
+      ${angleSymbol(B, A, C, 'B')}
+      ${angleSymbol(C, A, B, 'C')}
 
       ${dimBase(A,B, labels.c, w, h)}
       ${dimAlongEdge(A,C,G, labels.b, w, h)}
@@ -499,293 +504,326 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ========= Question generators ========= */
-  function clampTrig(x){ return clamp(x,-1,1); }
-  function pickSSA_a_unique(b, betaDeg){
-    const s = Math.sin(rad(betaDeg));
-    if(Math.random()<0.5){
-      return rndf(b*1.05, b*1.6, 2);
-    }else{
-      const upper = Math.max(0.8, b*s*0.95);
-      return rndf(0.5, upper, 2);
+  /* ========= Triangle generation ========= */
+
+  function notRight(A,B,C){
+    return Math.abs(A-90)>0.8 && Math.abs(B-90)>0.8 && Math.abs(C-90)>0.8;
+  }
+
+  function randomTriangle(){
+    // Make a non-right oblique triangle with reasonable angles and sides
+    for(let tries=0; tries<200; tries++){
+      const A = rndf(28, 118, 2);
+      const B = rndf(28, 118, 2);
+      const C = round2(180 - A - B);
+      if(C < 28 || C > 118) continue;
+      if(!notRight(A,B,C)) continue;
+
+      const c = rndf(10, 32, 2);                  // choose base to scale the figure
+      const k = c / Math.sin(rad(C));             // common ratio a/sinA = b/sinB = c/sinC
+      const a = k * Math.sin(rad(A));
+      const b = k * Math.sin(rad(B));
+
+      if(a>4 && b>4 && a<60 && b<60) return {A,B,C,a,b,c,k};
     }
+    // deterministic fallback (should not hit)
+    const A=60, B=50, C=70, c=20, k=c/Math.sin(rad(C));
+    return {A,B,C,a:k*Math.sin(rad(A)), b:k*Math.sin(rad(B)), c, k};
   }
 
-  function qBridgeTie_SAS(){
-    const b = rndf(8, 25, 2);
-    const c = rndf(10, 28, 2);
-    const alpha = rndf(30, 120, 2);
-    const a = Math.sqrt(b*b + c*c - 2*b*c*Math.cos(rad(alpha)));
-    const beta = deg(Math.asin(clampTrig(b*Math.sin(rad(alpha))/a)));
-    return {
-      title:'Bridge tie geometry — find a and β from b, c and α',
-      statementHTML: lines([
-        `On a bridge approach a steel tie links two anchor points forming triangle <b>ABC</b>.`,
-        `The base <b>AB</b> is side <b>c = ${c.toFixed(2)} m</b>.`,
-        `The side <b>AC</b> is side <b>b = ${b.toFixed(2)} m</b>.`,
-        `The included angle at <b>A</b> is <b>α = ${alpha.toFixed(2)}°</b>.`,
-        `Find the remaining side <b>a</b> and the angle <b>β</b> at <b>B</b>.`
-      ]) + svgOblique(a, b, c, { a:'a = ?', b:`b = ${b.toFixed(2)} m`, c:`c = ${c.toFixed(2)} m` }, 'Bridge tie (to scale)', pickTriClass()),
-      whyHTML:`<ul>
-        <li>Checks whether tie lengths on the fixing schedule match setting‑out tolerances.</li>
-        <li>Ensures clevis positions keep ties clear of parapets and services.</li>
-        <li>Confirms temporary clearances during installation.</li>
-      </ul>`,
-      parts:[
-        { prompt:'Side a', unit:'m', val: a },
-        { prompt:'Angle β', unit:'deg', val: beta }
-      ]
+  // SSA uniqueness guard: given angle X with opposite side x and another side y
+  function ssaUnique(angleDeg, oppSide, otherSide){
+    if(angleDeg > 90) return true;          // obtuse -> unique
+    if(Math.abs(angleDeg-90)<0.8) return false; // avoid near-right triangles altogether
+    // For a valid triangle from our generator, oppSide <= otherSide can cause ambiguity when angle is acute.
+    // Avoid two-solution region by insisting oppSide >= otherSide.
+    return oppSide >= otherSide;
+  }
+
+  function triangleFor(predicate){
+    for(let i=0;i<400;i++){
+      const T=randomTriangle();
+      if(predicate(T)) return T;
+    }
+    // Last-resort tweak (rare)
+    for(let j=0;j<200;j++){
+      let T=randomTriangle();
+      T.A = rndf(100, 130, 2);
+      T.C = round2(180 - T.A - T.B);
+      if(T.C > 28 && T.C < 118 && notRight(T.A,T.B,T.C)){
+        const c = rndf(10, 32, 2);
+        const k = c/Math.sin(rad(T.C));
+        T.a = k*Math.sin(rad(T.A)); T.b = k*Math.sin(rad(T.B)); T.c = c; T.k=k;
+        if(predicate(T)) return T;
+      }
+    }
+    return randomTriangle();
+  }
+
+  /* ========= Scenario sets (21 engineering contexts) ========= */
+
+  // Given/asked sets per your list
+  const scenarioDefs = [
+    // SSS
+    {num:1, givens:['a','b','c'], asks:['A','B']},
+    {num:2, givens:['a','b','c'], asks:['B','C']},
+    {num:3, givens:['a','b','c'], asks:['A','C']},
+    // SAS
+    {num:4, givens:['a','b','C'], asks:['c','A']},
+    {num:5, givens:['b','c','A'], asks:['a','B']},
+    {num:6, givens:['a','c','B'], asks:['b','C']},
+    // AAS/ASA with one side
+    {num:7, givens:['A','B','c'], asks:['C','a']},
+    {num:8, givens:['B','C','a'], asks:['A','b']},
+    {num:9,  givens:['A','C','b'], asks:['B','c']},
+    {num:10, givens:['A','B','a'], asks:['C','b']},
+    {num:11, givens:['A','C','a'], asks:['B','c']},
+    {num:12, givens:['B','C','b'], asks:['A','a']},
+    {num:13, givens:['A','B','b'], asks:['C','a']},
+    {num:14, givens:['A','C','c'], asks:['B','a']},
+    {num:15, givens:['B','C','c'], asks:['A','b']},
+    // SSA (guarded for uniqueness)
+    {num:16, givens:['A','a','b'], asks:['B','c'], ssa: {angle:'A', opp:'a', other:'b'}},
+    {num:17, givens:['A','a','c'], asks:['C','b'], ssa: {angle:'A', opp:'a', other:'c'}},
+    {num:18, givens:['B','b','a'], asks:['A','c'], ssa: {angle:'B', opp:'b', other:'a'}},
+    {num:19, givens:['B','b','c'], asks:['C','a'], ssa: {angle:'B', opp:'b', other:'c'}},
+    {num:20, givens:['C','c','a'], asks:['A','b'], ssa: {angle:'C', opp:'c', other:'a'}},
+    {num:21, givens:['C','c','b'], asks:['B','a'], ssa: {angle:'C', opp:'c', other:'b'}},
+  ];
+
+  // Human‑readable labels & units
+  const NAMES = { A:'angle A', B:'angle B', C:'angle C', a:'side a', b:'side b', c:'side c' };
+  const UNITS = {A:'deg', B:'deg', C:'deg', a:'m', b:'m', c:'m'};
+
+  // Contextual engineering prompts for each of the 21 scenarios
+  const SCENARIOS_META = [
+    { // 1
+      name:'Roof bracing panel',
+      intro:'A roof bracing panel links nodes on a truss chord, forming triangle <b>ABC</b>.',
+      caption:'Roof bracing (to scale)',
+      why:['Determines gusset orientation and bolt edge distances.',
+           'Confirms brace geometry against fabrication drawings.',
+           'Avoids clashes with purlins and services.']
+    },
+    { // 2
+      name:'Cofferdam struts',
+      intro:'Temporary struts inside a cofferdam cell define triangle <b>ABC</b> between walings.',
+      caption:'Cofferdam struts (to scale)',
+      why:['Verifies plate seating and jack approach angles.',
+           'Improves estimation of preload jack stroke.',
+           'Supports clash checks with pumps and risers.']
+    },
+    { // 3
+      name:'Survey control triangle',
+      intro:'Two known marks and a control point form triangle <b>ABC</b> on site.',
+      caption:'Control triangle (to scale)',
+      why:['Supports closure checks before works proceed.',
+           'Builds confidence in coordinates where GNSS is screened.',
+           'Reduces re‑work during set‑out.']
+    },
+    { // 4
+      name:'Guyed mast layout',
+      intro:'Two guys and the mast base form triangle <b>ABC</b> in plan.',
+      caption:'Guyed mast (to scale)',
+      why:['Sets guy spreads clear of services.',
+           'Checks feasible turnbuckle ranges.',
+           'Assures edge distances at anchors.']
+    },
+    { // 5
+      name:'Bridge tie geometry',
+      intro:'A steel tie links anchor points across an approach, forming triangle <b>ABC</b>.',
+      caption:'Bridge tie (to scale)',
+      why:['Checks tie lengths vs fixing schedule.',
+           'Ensures clevis positions maintain clearance.',
+           'Confirms temporary clearances during install.']
+    },
+    { // 6
+      name:'Retaining wall anchors',
+      intro:'Two soil anchors and the wall toe define triangle <b>ABC</b>.',
+      caption:'Anchor fan (to scale)',
+      why:['Sets anchor fan spread to avoid utilities.',
+           'Helps select plate sizes and turnbuckles.',
+           'Ensures movement monitors have clearance.']
+    },
+    { // 7
+      name:'Traverse leg check',
+      intro:'Two observed angles and a taped baseline form triangle <b>ABC</b> for a traverse leg.',
+      caption:'Traverse check (to scale)',
+      why:['Validates angle observations against tape distances.',
+           'Provides redundancy for control.',
+           'Improves set‑out accuracy near obstructions.']
+    },
+    { // 8
+      name:'Façade corner restraint',
+      intro:'Inclined restraints from slab to a façade corner form triangle <b>ABC</b>.',
+      caption:'Façade restraint (to scale)',
+      why:['Ensures bars clear panels and brackets.',
+           'Helps order correct bar lengths.',
+           'Coordinates with edge protection fixings.']
+    },
+    { // 9
+      name:'Pipe rack bracing',
+      intro:'Diagonal bracing between racks forms triangle <b>ABC</b> around a bay.',
+      caption:'Rack bracing (to scale)',
+      why:['Confirms brace stock lengths.',
+           'Checks clearance to services.',
+           'Assists detailing for connections.']
+    },
+    { // 10
+      name:'Roof bay diagonal',
+      intro:'Pitched roof members and a diagonal form triangle <b>ABC</b> within a bay.',
+      caption:'Roof bay (to scale)',
+      why:['Verifies geometry prior to hoisting.',
+           'Prevents clashes with M&amp;E.',
+           'Supports ordering of bracing kits.']
+    },
+    { // 11
+      name:'Crane tie‑off geometry',
+      intro:'A tie‑off point, the jib and a façade corner form triangle <b>ABC</b> in plan.',
+      caption:'Crane tie‑off (to scale)',
+      why:['Checks reach without oversailing.',
+           'Positions exclusion zones.',
+           'Supports selection of tie points.']
+    },
+    { // 12
+      name:'Temporary truss check',
+      intro:'A temporary truss panel is idealised as triangle <b>ABC</b> for quick checks.',
+      caption:'Truss check (to scale)',
+      why:['Assesses panel geometry.',
+           'Identifies awkward bolt angles.',
+           'Reduces adjustments during fit‑up.']
+    },
+    { // 13
+      name:'Edge protection ties',
+      intro:'Two ties and a guardrail post form triangle <b>ABC</b>.',
+      caption:'Edge protection (to scale)',
+      why:['Ensures tie angles keep rails plumb.',
+           'Avoids over‑stressing edge anchors.',
+           'Confirms safe clearances.']
+    },
+    { // 14
+      name:'Scaffold tie triangle',
+      intro:'Two ties and a façade point form triangle <b>ABC</b> around a scaffold bay.',
+      caption:'Scaffold ties (to scale)',
+      why:['Avoids clashes with openings.',
+           'Confirms tie rod stock lengths.',
+           'Checks angles against supplier limits.']
+    },
+    { // 15
+      name:'Survey offsets',
+      intro:'Two sight lines to an offset peg form triangle <b>ABC</b> on a curve.',
+      caption:'Offset triangle (to scale)',
+      why:['Speeds chainage checks where GNSS is screened.',
+           'Verifies peg positions before paving.',
+           'Reduces re‑work.']
+    },
+    { // 16
+      name:'Road alignment offset',
+      intro:'A baseline and offset observation create triangle <b>ABC</b> for tie set‑out.',
+      caption:'Alignment tie (to scale)',
+      why:['Places offset pegs accurately.',
+           'Checks visibility around obstructions.',
+           'Improves tie geometry ahead of pour.']
+    },
+    { // 17
+      name:'Site lighting stay',
+      intro:'A stay cable and two points define triangle <b>ABC</b> near a lighting column.',
+      caption:'Stay geometry (to scale)',
+      why:['Sets stay spread to avoid footpaths.',
+           'Confirms eye bolt ranges.',
+           'Checks clearance to signage.']
+    },
+    { // 18
+      name:'Span guying',
+      intro:'Guys and a span end form triangle <b>ABC</b>.',
+      caption:'Span guying (to scale)',
+      why:['Verifies guy angles within supplier limits.',
+           'Assures base plate edge distances.',
+           'Helps plan installation sequence.']
+    },
+    { // 19
+      name:'Sheet pile tie‑back',
+      intro:'A tie‑rod from a waling to an anchor and the toe form triangle <b>ABC</b>.',
+      caption:'Tie‑back triangle (to scale)',
+      why:['Confirms tie lengths vs design.',
+           'Reduces time near open excavations.',
+           'Helps avoid utilities behind the wall.']
+    },
+    { // 20
+      name:'Crane reach triangle',
+      intro:'The jib, hook path and a façade corner define triangle <b>ABC</b>.',
+      caption:'Crane reach (to scale)',
+      why:['Checks reach/compliance.',
+           'Positions lifting points.',
+           'Screens oversail risks.']
+    },
+    { // 21
+      name:'Portal frame fly‑brace',
+      intro:'A fly‑brace between rafter and column forms triangle <b>ABC</b>.',
+      caption:'Fly‑brace (to scale)',
+      why:['Confirms brace length against stock.',
+           'Positions hole centres in plates.',
+           'Ensures clearances to purlins.']
+    },
+  ];
+
+  function valueOf(T, key){ return T[key]; }
+
+  function givenText(T, givens){
+    const bits = givens.map(k=>{
+      const v = valueOf(T,k);
+      const s = (k==='A'||k==='B'||k==='C') ? `${to2(v)}°` : `${to2(v)} m`;
+      return `<b>${k} = ${s}</b>`;
+    });
+    return bits.join(', ');
+  }
+
+  function askPretty(asks){
+    return asks.map(k => (k==='A'||k==='B'||k==='C')? `angle <b>${k}</b>` : `side <b>${k}</b>`).join(' and ');
+  }
+
+  function labelsForFigure(T, givens){
+    const obj={a:null,b:null,c:null};
+    ['a','b','c'].forEach(k=>{
+      obj[k] = givens.includes(k) ? `${k} = ${to2(T[k])} m` : `${k} = ?`;
+    });
+    return obj;
+  }
+
+  function scenarioPredicate(def){
+    if(!def.ssa) return (T)=>notRight(T.A,T.B,T.C);
+    return (T)=>{
+      if(!notRight(T.A,T.B,T.C)) return false;
+      const {angle, opp, other} = def.ssa;
+      return ssaUnique(T[angle], T[opp], T[other]);
     };
   }
 
-  function qSurvey_SSA(){
-    const b = rndf(12, 32, 2);
-    const beta = rndf(25, 130, 2);
-    const a = pickSSA_a_unique(b, beta);
-    const alpha = deg(Math.asin(clampTrig(a*Math.sin(rad(beta))/b)));
-    const gamma = 180 - alpha - beta;
-    const c = Math.sqrt(a*a + b*b - 2*a*b*Math.cos(rad(gamma)));
-    return {
-      title:'Topographic resection — find γ and c from a, b and β',
-      statementHTML: lines([
-        `A control point is positioned using triangle <b>ABC</b> from two known marks.`,
-        `The side <b>AC</b> is <b>b = ${b.toFixed(2)} m</b> and the side <b>BC</b> is <b>a = ${a.toFixed(2)} m</b>.`,
-        `The observed angle at <b>B</b> is <b>β = ${beta.toFixed(2)}°</b>.`,
-        `Find the angle at <b>C</b>, <b>γ</b>, and the base <b>c</b>.`
-      ]) + svgOblique(a, b, c, { a:`a = ${a.toFixed(2)} m`, b:`b = ${b.toFixed(2)} m`, c:'c = ?' }, 'Resection triangle (to scale)', pickTriClass()),
-      whyHTML:`<ul>
-        <li>Supports control where direct measurement is obstructed by hoarding or traffic.</li>
-        <li>Allows closure checks between total station observations and tape readings.</li>
-        <li>Builds confidence in coordinates before works proceed.</li>
-      </ul>`,
-      parts:[
-        { prompt:'Angle γ', unit:'deg', val: gamma },
-        { prompt:'Side c', unit:'m', val: c }
-      ]
-    };
-  }
+  function makeScenario(def){
+    const T = triangleFor(scenarioPredicate(def));
+    const meta = SCENARIOS_META[def.num-1];
+    const labels = labelsForFigure(T, def.givens);
+    const fig = svgOblique(T.a, T.b, T.c, labels, meta.caption, pickTriClass());
 
-  function qRoofBracing_SSS(){
-    const a = rndf(6, 22, 2);
-    const b = rndf(6, 22, 2);
-    const c = rndf(Math.max(5, Math.abs(a-b)+1), a+b-1, 2);
-    const alpha = deg(Math.acos(clampTrig((b*b + c*c - a*a)/(2*b*c))));
-    const beta  = deg(Math.acos(clampTrig((c*c + a*a - b*b)/(2*c*a))));
-    return {
-      title:'Roof bracing panel — find α and β from a, b and c',
-      statementHTML: lines([
-        `A roof bracing panel forms triangle <b>ABC</b> between nodes on a truss chord.`,
-        `The measured panel sides are <b>a = ${a.toFixed(2)} m</b>, <b>b = ${b.toFixed(2)} m</b>, and <b>c = ${c.toFixed(2)} m</b>.`,
-        `Find the angles <b>α</b> at <b>A</b> and <b>β</b> at <b>B</b>.`
-      ]) + svgOblique(a, b, c, { a:`a = ${a.toFixed(2)} m`, b:`b = ${b.toFixed(2)} m`, c:`c = ${c.toFixed(2)} m` }, 'Bracing triangle (to scale)', pickTriClass()),
-      whyHTML:`<ul>
-        <li>Determines gusset plate orientation and bolt edge distances.</li>
-        <li>Confirms brace geometry against fabrication drawings.</li>
-        <li>Avoids clashes with purlins and containment routes.</li>
-      </ul>`,
-      parts:[
-        { prompt:'Angle α', unit:'deg', val: alpha },
-        { prompt:'Angle β', unit:'deg', val: beta }
-      ]
-    };
-  }
+    const statementHTML = lines([
+      meta.intro,
+      `Known values: ${givenText(T, def.givens)}.`,
+      `Find ${askPretty(def.asks)}.`,
+      fig
+    ]);
 
-  function qWallAnchors_SAS(){
-    const c = rndf(10, 28, 2);
-    const a = rndf(8, 25, 2);
-    const beta = rndf(35, 130, 2);
-    const b = Math.sqrt(c*c + a*a - 2*c*a*Math.cos(rad(beta)));
-    const gamma = deg(Math.asin(clampTrig(c*Math.sin(rad(beta))/b)));
-    return {
-      title:'Retaining wall anchors — find b and γ from c, a and β',
-      statementHTML: lines([
-        `Two soil anchors and the wall toe define triangle <b>ABC</b> for a tie arrangement.`,
-        `The base <b>AB</b> is <b>c = ${c.toFixed(2)} m</b> and the side <b>BC</b> is <b>a = ${a.toFixed(2)} m</b>.`,
-        `The included angle at <b>B</b> is <b>β = ${beta.toFixed(2)}°</b>.`,
-        `Find the remaining side <b>b</b> and the angle at <b>C</b>, <b>γ</b>.`
-      ]) + svgOblique(a, b, c, { a:`a = ${a.toFixed(2)} m`, b:'b = ?', c:`c = ${c.toFixed(2)} m` }, 'Anchor fan (to scale)', pickTriClass()),
-      whyHTML:`<ul>
-        <li>Sets anchor fan spread to avoid services and piles.</li>
-        <li>Helps select plate sizes and turnbuckle ranges.</li>
-        <li>Ensures movement monitors have clearance.</li>
-      </ul>`,
-      parts:[
-        { prompt:'Side b', unit:'m', val: b },
-        { prompt:'Angle γ', unit:'deg', val: gamma }
-      ]
-    };
-  }
+    const parts = def.asks.map(k=>({ prompt: NAMES[k], unit: UNITS[k], val: T[k] }));
 
-  function qCraneJib_SAS(){
-    const a = rndf(10, 36, 2);
-    const b = rndf(14, 40, 2);
-    const gamma = rndf(25, 130, 2);
-    const c = Math.sqrt(a*a + b*b - 2*a*b*Math.cos(rad(gamma)));
-    const beta = deg(Math.asin(clampTrig(b*Math.sin(rad(gamma))/c)));
     return {
-      title:'Crane jib set‑out — find c and β from a, b and γ',
-      statementHTML: lines([
-        `A jib, the hook path and a façade corner mark triangle <b>ABC</b>.`,
-        `The sides are <b>a = ${a.toFixed(2)} m</b> and <b>b = ${b.toFixed(2)} m</b> with included angle <b>γ = ${gamma.toFixed(2)}°</b> at <b>C</b>.`,
-        `Find the base <b>c</b> and the angle at <b>B</b>, <b>β</b>.`
-      ]) + svgOblique(a, b, c, { a:`a = ${a.toFixed(2)} m`, b:`b = ${b.toFixed(2)} m`, c:'c = ?' }, 'Crane reach triangle (to scale)', pickTriClass()),
-      whyHTML:`<ul>
-        <li>Checks reach without breaching oversail restrictions.</li>
-        <li>Positions exclusion zones and lifting points on slabs.</li>
-        <li>Supports selection of feasible jib options.</li>
-      </ul>`,
-      parts:[
-        { prompt:'Side c', unit:'m', val: c },
-        { prompt:'Angle β', unit:'deg', val: beta }
-      ]
-    };
-  }
-
-  function qSheetPile_SSA(){
-    const b = rndf(9, 22, 2);
-    const beta = rndf(30, 130, 2);
-    const a = pickSSA_a_unique(b, beta);
-    const alpha = deg(Math.asin(clampTrig(a*Math.sin(rad(beta))/b)));
-    const gamma = 180 - alpha - beta;
-    const c = Math.sqrt(a*a + b*b - 2*a*b*Math.cos(rad(gamma)));
-    return {
-      title:'Sheet pile tie‑back — find α and c from β, b and a',
-      statementHTML: lines([
-        `A tie‑rod from a waling to an anchor forms triangle <b>ABC</b> with the excavation toe.`,
-        `The measured distances are <b>b = ${b.toFixed(2)} m</b> and <b>a = ${a.toFixed(2)} m</b>.`,
-        `The observed angle at <b>B</b> is <b>β = ${beta.toFixed(2)}°</b>.`,
-        `Find the angle at <b>A</b>, <b>α</b>, and the base <b>c</b>.`
-      ]) + svgOblique(a, b, c, { a:`a = ${a.toFixed(2)} m`, b:`b = ${b.toFixed(2)} m`, c:'c = ?' }, 'Tie‑back triangle (to scale)', pickTriClass()),
-      whyHTML:`<ul>
-        <li>Confirms tie lengths and pin locations match temporary works design.</li>
-        <li>Reduces time near open excavations by checking geometry in advance.</li>
-        <li>Helps avoid utilities behind the wall line.</li>
-      </ul>`,
-      parts:[
-        { prompt:'Angle α', unit:'deg', val: alpha },
-        { prompt:'Side c', unit:'m', val: c }
-      ]
-    };
-  }
-
-  function qRiverStrut_SSS(){
-    const a = rndf(12, 30, 2);
-    const b = rndf(10, 28, 2);
-    const c = rndf(Math.max(8, Math.abs(a-b)+1), a+b-1, 2);
-    const beta = deg(Math.acos(clampTrig((c*c + a*a - b*b)/(2*c*a))));
-    const alpha = deg(Math.acos(clampTrig((b*b + c*c - a*a)/(2*b*c))));
-    const gamma = 180 - alpha - beta;
-    return {
-      title:'River crossing strut — find β and γ from a, b and c',
-      statementHTML: lines([
-        `Temporary struts form triangle <b>ABC</b> across a cofferdam cell.`,
-        `The measured side lengths are <b>a = ${a.toFixed(2)} m</b>, <b>b = ${b.toFixed(2)} m</b>, and <b>c = ${c.toFixed(2)} m</b>.`,
-        `Find the angles <b>β</b> and <b>γ</b>.`
-      ]) + svgOblique(a, b, c, { a:`a = ${a.toFixed(2)} m`, b:`b = ${b.toFixed(2)} m`, c:`c = ${c.toFixed(2)} m` }, 'Cofferdam struts (to scale)', pickTriClass()),
-      whyHTML:`<ul>
-        <li>Verifies strut bearing plates sit square to waling frames.</li>
-        <li>Improves estimation of jack stroke during pre‑load.</li>
-        <li>Supports clash checks with pumps and risers in the cofferdam.</li>
-      </ul>`,
-      parts:[
-        { prompt:'Angle β', unit:'deg', val: beta },
-        { prompt:'Angle γ', unit:'deg', val: gamma }
-      ]
-    };
-  }
-
-  function qPortalBrace_SAS(){
-    const b = rndf(8, 22, 2);
-    const c = rndf(10, 24, 2);
-    const alpha = rndf(35, 120, 2);
-    const a = Math.sqrt(b*b + c*c - 2*b*c*Math.cos(rad(alpha)));
-    const gamma = deg(Math.asin(clampTrig(c*Math.sin(rad(alpha))/a)));
-    return {
-      title:'Portal frame fly‑brace — find a and γ from α, b and c',
-      statementHTML: lines([
-        `A fly‑brace from a column to a rafter forms triangle <b>ABC</b>.`,
-        `The sides about the included angle are <b>b = ${b.toFixed(2)} m</b> and <b>c = ${c.toFixed(2)} m</b>.`,
-        `The included angle at <b>A</b> is <b>α = ${alpha.toFixed(2)}°</b>.`,
-        `Find the brace length <b>a</b> and the angle at <b>C</b>, <b>γ</b>.`
-      ]) + svgOblique(a, b, c, { a:'a = ?', b:`b = ${b.toFixed(2)} m`, c:`c = ${c.toFixed(2)} m` }, 'Fly‑brace triangle (to scale)', pickTriClass()),
-      whyHTML:`<ul>
-        <li>Confirms brace length against stock sizes before procurement.</li>
-        <li>Helps position hole centres in connection plates.</li>
-        <li>Ensures clearances to purlin lines and bracing nodes.</li>
-      </ul>`,
-      parts:[
-        { prompt:'Side a', unit:'m', val: a },
-        { prompt:'Angle γ', unit:'deg', val: gamma }
-      ]
-    };
-  }
-
-  function qRoadOffset_SSA(){
-    const c = rndf(14, 32, 2);
-    const gamma = rndf(35, 130, 2);
-    const a = pickSSA_a_unique(c, gamma);
-    const alpha = deg(Math.asin(clampTrig(a*Math.sin(rad(gamma))/c)));
-    const beta = 180 - alpha - gamma;
-    const b = Math.sqrt(a*a + c*c - 2*a*c*Math.cos(rad(beta)));
-    return {
-      title:'Road alignment offset — find β and b from γ, c and a',
-      statementHTML: lines([
-        `Two sight lines and an offset peg form triangle <b>ABC</b> for setting out a tie.`,
-        `The base <b>c = ${c.toFixed(2)} m</b> subtends the known angle at <b>C</b> of <b>γ = ${gamma.toFixed(2)}°</b>.`,
-        `The side <b>a = ${a.toFixed(2)} m</b> is measured to the offset peg.`,
-        `Find the angle at <b>B</b>, <b>β</b>, and the side <b>b</b>.`
-      ]) + svgOblique(a, b, c, { a:`a = ${a.toFixed(2)} m`, b:'b = ?', c:`c = ${c.toFixed(2)} m` }, 'Alignment tie (to scale)', pickTriClass()),
-      whyHTML:`<ul>
-        <li>Speeds up chainage checks where GPS is screened by structures.</li>
-        <li>Verifies peg positions before paving.</li>
-        <li>Reduces re‑work by validating tie geometry ahead of pour.</li>
-      </ul>`,
-      parts:[
-        { prompt:'Angle β', unit:'deg', val: beta },
-        { prompt:'Side b', unit:'m', val: b }
-      ]
-    };
-  }
-
-  function qFacade_SAS(){
-    const a = rndf(6, 20, 2);
-    const c = rndf(8, 22, 2);
-    const beta = rndf(30, 120, 2);
-    const b = Math.sqrt(a*a + c*c - 2*a*c*Math.cos(rad(beta)));
-    const alpha = deg(Math.asin(clampTrig(a*Math.sin(rad(beta))/b)));
-    return {
-      title:'Façade restraint — find b and α from β, a and c',
-      statementHTML: lines([
-        `Inclined restraints from slab to façade corner form triangle <b>ABC</b>.`,
-        `The sides about the included angle at <b>B</b> are <b>a = ${a.toFixed(2)} m</b> and <b>c = ${c.toFixed(2)} m</b>.`,
-        `The included angle is <b>β = ${beta.toFixed(2)}°</b>.`,
-        `Find the remaining side <b>b</b> and the angle at <b>A</b>, <b>α</b>.`
-      ]) + svgOblique(a, b, c, { a:`a = ${a.toFixed(2)} m`, b:'b = ?', c:`c = ${c.toFixed(2)} m` }, 'Façade restraint (to scale)', pickTriClass()),
-      whyHTML:`<ul>
-        <li>Ensures restraint bars clear façade panels and brackets.</li>
-        <li>Helps order correct bar lengths and couplers.</li>
-        <li>Improves coordination with temporary edge protection fixings.</li>
-      </ul>`,
-      parts:[
-        { prompt:'Side b', unit:'m', val: b },
-        { prompt:'Angle α', unit:'deg', val: alpha }
-      ]
+      title: `${meta.name} — find ${def.asks.join(' and ')} from ${def.givens.join(', ')}`,
+      statementHTML,
+      whyHTML:`<ul>${meta.why.map(x=>`<li>${x}</li>`).join('')}</ul>`,
+      parts
     };
   }
 
   /* ========= Pool & engine ========= */
-  const GENERATORS = [
-    qBridgeTie_SAS,
-    qSurvey_SSA,
-    qRoofBracing_SSS,
-    qWallAnchors_SAS,
-    qCraneJib_SAS,
-    qSheetPile_SSA,
-    qRiverStrut_SSS,
-    qPortalBrace_SAS,
-    qRoadOffset_SSA,
-    qFacade_SAS
-  ];
+  const GENERATORS = scenarioDefs.map(def => ()=>makeScenario(def));
 
   let QUESTIONS=[], BATCH=10, idx=0, score=0;
   let nameStr='Student', mode='timed', timeLeft=0, timerId=null, target=0, correctSoFar=0, unlimited=false;
@@ -800,7 +838,8 @@ window.addEventListener('DOMContentLoaded', () => {
   function buildSet(n){
     const gens=[...GENERATORS], qs=[];
     for(let i=0;i<n;i++){
-      const g = gens.length ? gens.splice(Math.floor(Math.random()*gens.length),1)[0] : GENERATORS[Math.floor(Math.random()*GENERATORS.length)];
+      const g = gens.length ? gens.splice(Math.floor(Math.random()*gens.length),1)[0]
+                            : GENERATORS[Math.floor(Math.random()*GENERATORS.length)];
       const q = g();
       qs.push(q);
     }
@@ -817,7 +856,6 @@ window.addEventListener('DOMContentLoaded', () => {
   function startTimer(){
     if(mode!=='timed' || unlimited) return;
     clearInterval(timerId);
-    // show starting value immediately
     $timeTxt.textContent = secsToMMSS(timeLeft);
     timerId = setInterval(()=>{
       if(timeLeft <= 1){
@@ -841,7 +879,7 @@ window.addEventListener('DOMContentLoaded', () => {
     renderQ();
     updateTop();
     if(window.MathJax && window.MathJax.typeset){ MathJax.typeset(); }
-    startTimer(); // will no‑op if not timed or unlimited
+    startTimer();
   }
 
   function finish(message='Well done!'){
@@ -852,7 +890,6 @@ window.addEventListener('DOMContentLoaded', () => {
     el('sumName').textContent = nameStr || 'Student';
     el('sumMode').textContent = ($modeTxt.textContent);
     el('sumScore').textContent = `${score} / ${idx}`;
-    // compute used time only if timed & not unlimited
     const tSel = document.querySelector('input[name="tlimit"]:checked')?.value||'0';
     const setTime = (mode==='timed' && !unlimited) ? parseInt(tSel,10) : 0;
     const usedSecs = (mode==='timed' && !unlimited) ? (setTime - timeLeft) : 0;
@@ -861,29 +898,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function progressText(){
     return (mode==='timed') ? `Question ${idx+1}` : `Question ${idx+1} · Target ${correctSoFar}/${target}`;
-  }
-
-  function buildIORows(parts){
-    const io = document.getElementById('io');
-    io.innerHTML = '';
-    parts.forEach((p,i) => {
-      const row = document.createElement('div');
-      row.className = 'row';
-      row.innerHTML = `
-        <label>${p.prompt}</label>
-        <input class="num" id="ans-${i}" type="text" inputmode="decimal" autocomplete="off" placeholder="e.g. 12.34">
-        <span class="unit">${unit(p.unit)}</span>
-        <span class="marker" id="mark-${i}"></span>
-        <span class="feedback" id="fb-${i}"></span>
-      `;
-      io.appendChild(row);
-    });
-    io.querySelectorAll('input.num').forEach(inp=>{
-      inp.addEventListener('blur', ()=>{
-        const x = parseNum(inp.value);
-        if(isFinite(x)) inp.value = to2(x);
-      });
-    });
   }
 
   function renderQ(){
@@ -908,7 +922,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const fb = document.getElementById('fb-'+i);
       const stu = parseNum(inp && inp.value);
       if(isFinite(stu)) inp.value = to2(stu);
-      if(isFinite(stu) && eq2dp(stu, p.val)){
+      if(isFinite(stu) && within09(stu, p.val)){
         mark.textContent='✓'; mark.className='marker ok'; fb.textContent='';
       }else{
         mark.textContent='✗'; mark.className='marker no';
@@ -953,7 +967,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   document.querySelectorAll('input[name="mode"]').forEach(r=>r.addEventListener('change', updateModeFields));
 
-  // START button: set globals FIRST, then start worksheet and timer
+  // START button
   document.getElementById('startBtn').addEventListener('click', ()=>{
     nameStr = document.getElementById('nameInput').value.trim() || 'Student';
     const picked = document.querySelector('input[name="mode"]:checked');
@@ -962,7 +976,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if(mode==='timed'){
       const sel = parseInt(document.querySelector('input[name="tlimit"]:checked')?.value||'1200',10);
       unlimited = (sel===0);
-      timeLeft = unlimited ? 0 : sel;   // <<< correct: set timeLeft here
+      timeLeft = unlimited ? 0 : sel;
     }else{
       unlimited = false;
       timeLeft = 0;
