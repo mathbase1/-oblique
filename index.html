@@ -1,1014 +1,411 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-GB">
 <head>
-  <meta charset="UTF-8" />
-  <title>Civil Engineering – Oblique Triangles (Sine & Cosine Rule)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script id="MathJax-script" async
-          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <style>
-    :root{
-      --accent:#6a5cff;
-      --accent2:#00c2ff;
-      --ink:#0f172a;
-      --muted:#55607a;
-      --success:#2e7d32;
-      --error:#e53935;
-      --surface:#ffffff;
-      --field-w:11rem;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
-      margin:0;color:var(--ink);
-      background:
-        radial-gradient(1200px 600px at 10% -10%, #dfe8ff, transparent 60%),
-        radial-gradient(1200px 600px at 110% 10%, #ccfbff, transparent 60%),
-        linear-gradient(180deg,#f5f8ff 0%, #f0fbff 50%, #eef3ff 100%);
-    }
-    h1{
-      margin:0.7rem 0 0.4rem;text-align:center;
-      font-size:1.6rem;font-weight:900;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      letter-spacing:.2px
-    }
-    p.lede{max-width:980px;margin:0.2rem auto 0.6rem;text-align:center;color:#1f2a44}
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#193247">
+<meta name="description" content="Adaptive sine-rule and cosine-rule practice for T Level engineering: clear diagrams, engineering scenarios, formula support and precise classroom tolerance.">
+<title>Sine &amp; Cosine Studio · T Level Engineering</title>
+<style>:root{--ink:#193247;--muted:#566c7d;--bg:#f2f5f6;--paper:#fff;--soft:#edf3f5;--border:#d4e0e6;--accent:#006d64;--accent-bg:#e9f6f1;--warn:#825100;--warn-bg:#fff7e8;--error:#a1243e;--error-bg:#fff1f3;--shadow:0 7px 26px #14314708;--radius:18px;color-scheme:light;font:16px/1.6 system-ui,-apple-system,'Segoe UI',sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}[hidden]{display:none!important}button,input,select{font:inherit}button{cursor:pointer;border:1px solid transparent;border-radius:10px;min-height:44px;padding:.62rem .95rem;font-size:.85rem;line-height:1.4;font-weight:750}button:disabled{cursor:not-allowed;opacity:.5}button:not(:disabled):active{transform:translateY(1px)}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid #dfaa40;outline-offset:3px}a{color:var(--accent);text-underline-offset:3px}h1,h2,h3,p{margin:0 0 1rem}h1{letter-spacing:-.04em;line-height:1.13}h2{line-height:1.3;letter-spacing:-.02em;font-size:1.35rem}h3{font-size:1.03rem}input,select{min-width:0;background:var(--paper);color:var(--ink);border:1px solid var(--border);border-radius:9px;padding:.65rem .75rem;width:100%;line-height:1.5}input{font-variant-numeric:tabular-nums}input:disabled,select:disabled{opacity:1;background:var(--soft);color:var(--ink)}button.primary{background:var(--accent);color:#fff}button.primary:hover:not(:disabled){filter:brightness(1.08)}button.quiet{background:var(--paper);color:var(--ink);border-color:var(--border)}button.quiet:hover:not(:disabled){background:var(--soft)}button.text-button{background:transparent;color:var(--muted);padding:.5rem .1rem;text-decoration:underline;text-underline-offset:4px;font-size:.78rem}.eyebrow{font-size:.65rem;letter-spacing:.13em;font-weight:850;color:var(--accent);margin-bottom:.7rem}.muted,.help{color:var(--muted)}.help{font-size:.79rem;line-height:1.7}.small{font-size:.75rem}.skip-link{position:absolute;top:8px;left:8px;z-index:100;transform:translateY(-160%);background:var(--paper);padding:.7rem}.skip-link:focus{transform:none}.header{max-width:1360px;margin:0 auto;padding:1.15rem 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:1rem}.brand{display:flex;gap:.75rem;align-items:center}.brand-mark{display:grid;place-items:center;background:#193247;color:#fff;border-radius:13px;width:46px;height:46px;font-size:1.35rem;font-weight:850;line-height:1}.brand-mark sup{font-size:.65rem}.brand strong{display:block;font-size:1.09rem;letter-spacing:-.025em}.brand small{display:block;color:var(--muted);font-size:.7rem}.header nav{display:flex;gap:.45rem;flex-wrap:wrap}.header nav button{font-size:.76rem;padding:.55rem .75rem}.main{max-width:1230px;margin:auto;padding:1.5rem 2rem 3rem}.start-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:1.65rem;align-items:stretch;margin-top:1rem}.hero{border-radius:22px;background:#193247;color:#fff;padding:2.4rem 2.5rem;min-height:440px;display:flex;flex-direction:column;justify-content:center}.hero .eyebrow{color:#a9dfd0}.hero h1{font-size:clamp(2.6rem,4vw,3.9rem);margin:1rem 0 1.1rem}.hero h1 span{color:#aadfca}.hero p{color:#cbdde7;max-width:390px;font-size:1rem;line-height:1.8}.hero-example{border-top:1px solid #486171;padding-top:1.5rem;margin-top:1.2rem;display:flex;gap:.85rem;align-items:center;flex-wrap:wrap;font-size:1.4rem;font-variant-numeric:tabular-nums}.hero-example .arrow{color:#a9dfd0}.hero-example small{display:block;flex-basis:100%;font-size:.68rem;color:#adc6d5}.panel{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}.start-card{padding:2.2rem;display:flex;flex-direction:column;justify-content:center}.start-card h2{font-size:1.7rem;margin:0 0 1rem}.start-card p{font-size:.96rem;line-height:1.8}.ready-note{border-left:3px solid var(--accent);background:var(--soft);padding:.85rem 1rem;margin:.7rem 0 1.3rem;color:var(--muted);font-size:.84rem}.start-button{width:100%;display:flex;justify-content:space-between;align-items:center;font-size:1.02rem;padding:.9rem 1.05rem;margin:.3rem 0 .8rem}.start-card .help{font-size:.76rem;margin-bottom:0}.session-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.15rem}.session-stats{display:flex;gap:1.5rem}.stat{border-right:1px solid var(--border);padding-right:1.5rem}.stat:last-child{border:0;padding:0}.stat span{display:block;color:var(--muted);font-size:.65rem;letter-spacing:.025em}.stat strong{font-size:1.3rem;font-variant-numeric:tabular-nums;display:block;line-height:1.6}.question-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(330px,1fr);gap:1.25rem;align-items:start}.question-paper{padding:1.8rem 2rem;min-height:410px}.paper-heading{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:0 0 1.7rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}.paper-heading h2{font-size:1.38rem;margin:0}.paper-heading>span{font-size:.64rem;color:var(--muted);letter-spacing:.03em}.question-text{font-size:1.17rem;line-height:1.9}.question-text p{margin:0 0 1rem}.question-text b{font-weight:760}.question-ask{margin-top:1.2rem!important}.expression{padding:1.2rem .7rem;text-align:center;background:var(--soft);border:1px solid var(--border);border-radius:13px;font-size:1.48rem;line-height:2.2;margin:1rem 0 1.3rem;overflow-x:auto}.sf{white-space:nowrap;font-variant-numeric:tabular-nums;display:inline-block}.sf sup{font-size:.7em;vertical-align:super;line-height:0}.math-pair{display:inline;white-space:normal}.fraction{display:inline-flex;vertical-align:middle;flex-direction:column;text-align:center;line-height:1.8;max-width:100%}.fraction>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .35em .13em}.fraction>span:last-child{padding:.1em .35em 0}.table-scroll{overflow:auto;border:1px solid var(--border);border-radius:11px;margin:.9rem 0 1.2rem}table{width:100%;border-collapse:collapse;font-size:.92rem}th{text-align:left;background:var(--soft);font-size:.78rem;font-weight:750}th,td{padding:.65rem .9rem;border-bottom:1px solid var(--border)}tr:last-child td{border-bottom:0}td{font-variant-numeric:tabular-nums;line-height:1.7}.paper-tools{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.5rem}.paper-foot{border-top:1px solid var(--border);padding-top:1rem;margin-top:1.35rem;color:var(--muted);font-size:.72rem;line-height:1.7}.answer-panel{padding:1.5rem}.answer-panel h2{font-size:1.16rem;margin-bottom:.5rem}.answer-panel>.help{margin-bottom:1.1rem}.answer-part{border:0;margin:0 0 1.15rem;padding:0;min-width:0}.answer-part>legend,.answer-part>label{display:block;font-size:.83rem;font-weight:750;margin-bottom:.55rem}.sf-entry{background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:1rem .85rem 1rem;display:grid;grid-template-columns:minmax(90px,1fr) 54px minmax(67px,.62fr);gap:.5rem;align-items:end}.coefficient-field label,.power-field label{display:block;color:var(--muted);font-size:.67rem;margin-bottom:.35rem;font-weight:650}.coefficient-field input{font-size:1.42rem;min-height:53px;text-align:center;padding:.55rem .3rem}.power-field{align-self:start}.power-field input{text-align:center;font-size:1.12rem;padding:.28rem .15rem;min-height:40px}.times-ten{font-size:1.4rem;line-height:53px;text-align:center;white-space:nowrap}.sign-button{font-size:.7rem;padding:.2rem .4rem;min-height:28px;background:var(--paper);color:var(--muted);border-color:var(--border);margin:.45rem 0 0;width:100%}.sf-rule{font-size:.7rem;color:var(--muted);line-height:1.7;margin:.65rem 0}.ordinary-shell{display:flex;align-items:center;border:1px solid var(--border);border-radius:10px;background:var(--paper)}.ordinary-shell input{font-size:1.4rem;border:0;background:transparent}.ordinary-shell span{font-size:.84rem;color:var(--muted);padding:0 .7rem;white-space:nowrap}.choice-options{display:grid;gap:.55rem}.choice{display:flex;align-items:center;gap:.65rem;border:1px solid var(--border);border-radius:10px;padding:.7rem .8rem;cursor:pointer;font-size:.95rem;min-height:48px}.choice input{width:auto;accent-color:var(--accent);flex:none}.choice:has(input:checked){border-color:var(--accent);background:var(--accent-bg)}.choice span{min-width:0}.ordering{display:grid;gap:.55rem}.order-row{display:grid;grid-template-columns:20px 1fr;align-items:center;gap:.55rem}.order-row>span{font-size:.76rem;color:var(--muted)}.order-row select{font-size:.86rem}.check-button,.next-button{width:100%;font-size:.92rem;padding:.85rem 1rem;margin:.3rem 0 .6rem}.answer-end{border-top:1px solid var(--border);margin-top:.7rem;padding-top:.8rem;font-size:.69rem;color:var(--muted);line-height:1.7}.answer-actions{display:flex;justify-content:space-between;align-items:center;gap:.7rem;flex-wrap:wrap}.notice{font-size:.83rem;line-height:1.75;padding:.85rem 1rem;border-radius:10px;border:1px solid var(--border);background:var(--soft);margin:.7rem 0;overflow-wrap:anywhere}.notice.good{background:var(--accent-bg);color:var(--accent);border-color:var(--accent)}.notice.bad{color:var(--error);background:var(--error-bg);border-color:var(--error)}.notice.warn{color:var(--warn);background:var(--warn-bg)}.save-note{font-size:.68rem;text-align:right;color:var(--muted);margin:1.1rem 0}.footer{max-width:1230px;margin:auto;padding:1rem 2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:1rem;align-items:center;font-size:.67rem;color:var(--muted)}.footer button{font-size:.7rem}.results-header{padding:.75rem 0 1rem}.results-header h1{font-size:2.5rem}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}.metric{padding:1rem 1.25rem;background:var(--paper);border:1px solid var(--border);border-radius:13px}.metric strong{display:block;font-size:1.85rem;font-variant-numeric:tabular-nums}.metric span{font-size:.72rem;color:var(--muted)}.toolbar{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.4rem 0}.review-card{background:var(--paper);border:1px solid var(--border);border-radius:13px;margin:.8rem 0;overflow:hidden}.review-card summary{cursor:pointer;padding:1rem 1.2rem;font-weight:700;font-size:.85rem;display:flex;justify-content:space-between;gap:.8rem}.review-card summary .status{font-size:.7rem;color:var(--muted)}.review-body{padding:0 1.2rem 1.25rem;font-size:.95rem}.review-body .question-text{font-size:.95rem}.review-body .expression{font-size:1.05rem}.solution{border-top:1px solid var(--border);padding-top:.85rem;margin-top:.85rem;line-height:1.8}.solution p{font-size:.91rem;margin:0 0 .7rem}.your-entry{font-size:.8rem;padding:.7rem;background:var(--soft);border-radius:8px;margin-top:.85rem;overflow-wrap:anywhere}dialog{border:1px solid var(--border);border-radius:18px;background:var(--paper);color:var(--ink);padding:0;width:calc(100% - 2rem);max-width:720px;max-height:91dvh;overflow:auto;box-shadow:0 24px 80px #061a3266}dialog::backdrop{background:#132738b8;backdrop-filter:blur(3px)}.dialog-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.1rem 1.3rem;border-bottom:1px solid var(--border)}.dialog-header h2{font-size:1.2rem;margin:0}.close-button{padding:.2rem;width:40px;min-height:40px;font-size:1.2rem;background:var(--soft);color:var(--ink);border-color:var(--border)}.dialog-body{padding:1.2rem 1.35rem}.dialog-body p{font-size:.91rem;line-height:1.8}.dialog-body .help{font-size:.78rem}.method-steps{list-style:none;counter-reset:steps;padding:0;margin:1rem 0}.method-steps li{counter-increment:steps;display:flex;gap:.8rem;margin:.9rem 0;font-size:.94rem;line-height:1.8}.method-steps li:before{content:counter(steps);background:var(--accent-bg);color:var(--accent);border-radius:50%;display:grid;place-items:center;font-size:.76rem;font-weight:800;flex:none;width:26px;height:26px;margin-top:.25rem}.example-block{border:1px solid var(--border);border-radius:12px;padding:1rem;margin:.8rem 0;background:var(--soft)}.example-block .question-text{font-size:.93rem}.example-block .expression{font-size:1.05rem;background:var(--paper)}.native-details{border-top:1px solid var(--border);margin-top:1rem;padding-top:.8rem}.native-details summary{cursor:pointer;font-weight:700;font-size:.85rem}.native-details p{font-size:.83rem}.teacher-dialog{max-width:980px}.teacher-intro{display:flex;gap:1rem;justify-content:space-between;align-items:flex-start;background:var(--soft);border-left:4px solid var(--accent);padding:1rem;border-radius:10px;margin-bottom:1rem}.teacher-intro h3{margin-bottom:.25rem;font-size:1.3rem}.teacher-intro p{margin:0;font-size:.81rem}.teacher-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin:1rem 0}.teacher-metrics>div{border:1px solid var(--border);border-radius:9px;padding:.6rem}.teacher-metrics strong{display:block;font-size:1.4rem}.teacher-metrics span{color:var(--muted);font-size:.65rem}.tag{display:inline-block;padding:.15rem .4rem;border-radius:6px;border:1px solid var(--border);font-size:.66rem;white-space:nowrap}.tag.independent{color:var(--accent);border-color:var(--accent)}.tag.supported{color:var(--warn);border-color:var(--warn)}.tag.revisit{color:var(--error);border-color:var(--error)}.teacher-table td{font-size:.76rem}.teacher-table th{font-size:.7rem}.source-list p{font-size:.81rem;padding:.8rem 0;margin:0;border-top:1px solid var(--border)}.confirm-dialog{max-width:490px}.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:.75rem 1rem;font-size:.82rem;border-radius:9px;z-index:1000;max-width:min(90vw,650px);box-shadow:var(--shadow)}.toast:empty{display:none}
+body[data-theme=dark]{--ink:#e0edf5;--muted:#b0c4d2;--bg:#122331;--paper:#1b3041;--soft:#243e50;--border:#3c5668;--accent:#9bdfc9;--accent-bg:#244c42;--warn:#f6d298;--warn-bg:#443a27;--error:#ffabba;--error-bg:#492e3b;--shadow:0 7px 24px #0001;color-scheme:dark}body[data-theme=dark] button.primary{color:#16392e}body[data-theme=dark] .hero{border:1px solid #3c5668}body[data-theme=dark] .brand-mark{background:#315166}.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:1020px){.header{padding:1rem 1.2rem}.main{padding:1.2rem 1.2rem 2.3rem}.start-grid{gap:1rem}.hero{padding:1.7rem}.start-card{padding:1.6rem}.question-grid{gap:1rem;grid-template-columns:minmax(0,1.3fr) minmax(310px,1fr)}.question-paper{padding:1.4rem}.answer-panel{padding:1.15rem}.question-text{font-size:1.12rem}.expression{font-size:1.27rem}}
+@media(max-width:760px){.header{flex-wrap:wrap;gap:.75rem;padding:1rem}.header nav{margin-left:auto}.brand strong{font-size:1rem}.brand small{font-size:.63rem}.main{padding:1rem .85rem 2rem}.start-grid{grid-template-columns:1fr;margin-top:.3rem}.hero{min-height:0;padding:1.55rem}.hero h1{font-size:2.55rem;margin:.5rem 0 1rem}.hero h1 br{display:none}.hero-example{display:none}.hero p{max-width:none;font-size:.9rem;margin-bottom:0}.hero .eyebrow{font-size:.6rem}.start-card{padding:1.4rem}.start-card h2{font-size:1.45rem}.start-card p{font-size:.88rem}.question-grid{grid-template-columns:1fr}.question-paper{min-height:0;padding:1.2rem}.paper-heading{margin-bottom:1.05rem;padding-bottom:.8rem}.paper-heading h2{font-size:1.23rem}.question-text{font-size:1.09rem}.paper-tools{margin-top:1rem}.paper-foot{margin-top:1rem;padding-top:.8rem}.answer-panel{padding:1.25rem}.session-bar{gap:.55rem}.session-stats{gap:.8rem}.stat{padding-right:.8rem}.stat span{font-size:.6rem}.stat strong{font-size:1.1rem}.session-bar>button{font-size:.71rem;padding:.5rem .65rem}.metrics{grid-template-columns:1fr 1fr;gap:.6rem}.metric{padding:.8rem 1rem}.metric strong{font-size:1.55rem}.results-header h1{font-size:2rem}.save-note{text-align:left}.footer{flex-direction:column;align-items:flex-start;gap:.3rem;padding:1rem}.teacher-metrics{grid-template-columns:1fr 1fr}.dialog-header{padding:1rem}.dialog-body{padding:1rem}.teacher-table td:first-child{min-width:160px}.expression{font-size:1.22rem}.sf-entry{grid-template-columns:minmax(90px,1.2fr) 62px minmax(68px,.8fr)}.paper-heading>span{font-size:.6rem}.review-card summary{padding:.9rem}.review-body{padding:0 .9rem 1rem}.toolbar button{font-size:.78rem}}
+@media(max-width:370px){.header nav{width:100%;justify-content:flex-end}.stat span{font-size:.55rem}.session-stats{gap:.6rem}.stat{padding-right:.6rem}.session-bar>button{max-width:84px}.expression{font-size:1.1rem}.sf-entry{gap:.25rem;padding:.85rem .7rem;grid-template-columns:minmax(80px,1fr) 53px minmax(62px,.7fr)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media print{body{background:#fff!important;color:#111!important}.header,.footer,.toolbar,.session-bar,.paper-tools,.paper-foot,.save-note,.answer-panel,dialog,.toast,.notice,button,.skip-link{display:none!important}.main{max-width:none;padding:0}.panel,.metric,.review-card{background:white!important;color:#111!important;box-shadow:none;border-color:#bbb;border-radius:0}.question-grid{display:block}.question-paper{min-height:0}.expression{background:white!important;border-color:#bbb;color:#111}.review-body{display:block!important}.review-card{break-inside:avoid}.results-header h1{font-size:22pt}.question-text{font-size:12pt}.review-card .question-text{font-size:10pt}.tag,.muted,.help,th,td,.metric span,.status{color:#111!important}.table-scroll{overflow:visible}.metrics{gap:.4rem}.source-list{display:none}}
 
-    .logo{position:absolute;top:10px;left:10px;width:110px;height:auto;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+:root{font-size:16px}.header{max-width:1450px;padding:.85rem 1.7rem}.brand-mark{font-size:1.15rem}.brand strong{font-size:1.07rem}.main{max-width:1400px;padding:1.15rem 1.7rem 1.8rem}.brand small{font-size:.7rem}.hero{min-height:440px}.hero h1{font-size:clamp(2.5rem,4.2vw,3.75rem)}.hero-sketch{margin-top:.8rem}.hero-sketch svg{height:140px;width:100%;display:block}.hero-footnote{font-size:.61rem!important;letter-spacing:.07em;margin:1.5rem 0 0!important}.start-card{padding:2rem}.start-card h2{font-size:1.65rem}.start-card .ready-note{font-size:.86rem}.session-bar{margin-bottom:.9rem}.session-stats{gap:1.2rem}.stat{padding-right:1.2rem}.stat strong{font-size:1.18rem}.question-grid{grid-template-columns:minmax(0,1.8fr) minmax(320px,1fr);gap:1.2rem}.question-paper{padding:1.35rem 1.6rem;min-height:0}.paper-heading{margin-bottom:1rem;padding-bottom:.7rem}.paper-heading h2{font-size:1.32rem}.question-text{font-size:1.08rem;line-height:1.7}.question-text p{margin:0 0 .65rem}.scenario-copy p+ p{color:var(--muted);font-size:.94em}.givens-grid{display:flex;gap:.45rem;flex-wrap:wrap;margin:.9rem 0}.given-item{background:var(--soft);border:1px solid var(--border);border-radius:9px;padding:.43rem .65rem;font-size:.85rem;line-height:1.5}.given-item strong{font-size:.96rem;display:block;font-variant-numeric:tabular-nums}.given-item span{font-size:.7rem;color:var(--muted);display:block}.given-item:first-child{border-left:3px solid var(--accent)}.diagram-box{border:1px solid var(--border);border-radius:13px;overflow:hidden;margin:.9rem 0;background:var(--paper)}.triangle-svg{display:block;width:100%;height:auto;max-height:310px}.triangle-svg text{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;paint-order:stroke fill;stroke:var(--paper);stroke-width:5;stroke-linejoin:round;fill:var(--ink)}.tri-face{fill:var(--accent-bg);stroke:none}.secondary-face{fill:var(--soft)}.tri-edge{stroke:var(--ink);stroke-width:2.4;fill:none}.tri-target{stroke:var(--accent);stroke-width:4;stroke-dasharray:9 5}.tri-shared{stroke:var(--accent);stroke-width:2;stroke-dasharray:6 5}.tri-extension{stroke:var(--muted);stroke-width:1.8;stroke-dasharray:5 4}.tri-node{fill:var(--ink)}.tri-angle{stroke:var(--accent);stroke-width:1.8;fill:none}.tri-leader{stroke:var(--muted);stroke-width:1;fill:none}.tri-vertex{font-size:21px;font-weight:800}.tri-dimension{font-size:19px;font-weight:700}.tri-angle-label{font-size:18px;font-weight:750;fill:var(--accent)!important}.diagram-toolbar{padding:.45rem .75rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:.6rem;color:var(--muted);font-size:.65rem;line-height:1.5}.diagram-toolbar button{font-size:.69rem;min-height:32px;padding:.4rem .55rem}.question-ask{font-weight:750;font-size:1.03rem;margin:.85rem 0!important;padding:.7rem .9rem;border-left:3px solid var(--accent);background:var(--soft);border-radius:0 8px 8px 0}.paper-tools{margin-top:.8rem;gap:.5rem}.paper-tools button{font-size:.78rem;padding:.55rem .75rem}.paper-foot{font-size:.67rem;margin-top:.9rem;padding-top:.7rem}.sidebar{display:grid;gap:.8rem}.answer-panel{padding:1.2rem}.answer-panel h2{font-size:1.16rem}.answer-panel>.help{margin-bottom:.85rem;font-size:.75rem}.answer-part{margin-bottom:.95rem}.answer-part>label{font-size:.84rem;line-height:1.5}.number-shell{display:flex;align-items:center;border:1px solid var(--border);border-radius:10px;overflow:hidden}.number-shell input{border:0;font-size:1.4rem;padding:.5rem .65rem;background:transparent}.number-shell span{padding:0 .8rem;font-size:.88rem;color:var(--muted);white-space:nowrap}.number-shell:has(input:disabled){background:var(--soft)}.step-controls{display:flex;justify-content:flex-end;gap:.35rem;margin-top:.35rem}.step-controls button{font-size:.7rem;padding:.3rem .55rem;min-height:32px;border-color:var(--border);color:var(--ink);background:var(--soft)}.part-feedback{font-size:.73rem;line-height:1.6;margin-top:.3rem}.part-feedback:empty{display:none}.part-feedback.good{color:var(--accent)}.part-feedback.bad{color:var(--error)}.answer-end{font-size:.66rem;margin-top:.45rem;padding-top:.7rem}.answer-end button{font-size:.68rem;min-height:32px}.check-button,.next-button{margin:.2rem 0 .35rem;padding:.7rem;font-size:.88rem}.answer-actions button{font-size:.72rem}.formula-panel{padding:.9rem 1.1rem}.formula-panel>h3{font-size:.8rem;margin:0 0 .6rem}.formula-line{padding:.5rem 0;border-top:1px solid var(--border)}.formula-line:first-of-type{border-top:0}.formula-line small{display:block;color:var(--muted);font-size:.65rem;margin-bottom:.25rem}.formula-math{font-family:Cambria,Georgia,'Times New Roman',serif;font-size:1.05rem;line-height:1.7;white-space:normal}.formula-math i{font-style:italic}.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.22;padding:0 .14em;white-space:nowrap;margin:0 .07em}.frac>span:first-child{border-bottom:1px solid currentColor;padding:.04em .17em .16em}.frac>span:last-child{padding:.16em .17em .04em}.formula-math sup{font-size:.7em;line-height:0}.formula-note{font-size:.66rem;color:var(--muted);line-height:1.65;margin:.45rem 0 0}.notice{font-size:.8rem;padding:.65rem .8rem}.help-math{font-family:Cambria,Georgia,serif;font-size:1.2rem}.diagram-dialog{max-width:1200px}.diagram-viewport{overflow:auto;max-height:68vh;border:1px solid var(--border);border-radius:12px;background:var(--paper)}.diagram-big{width:100%;min-width:640px}.diagram-big .triangle-svg{max-height:none}.zoom-tools{display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem}.zoom-tools button{min-height:38px}.zoom-tools output{font-size:.83rem;min-width:60px;text-align:center}.paired-diagrams{display:grid;grid-template-columns:1fr 1fr}.paired-diagrams>div+div{border-left:1px solid var(--border)}.paired-diagrams .triangle-svg{min-height:160px}.diagram-caption{font-size:.72rem!important;font-weight:750;text-align:center;margin:.7rem 0 0!important}.joined-svg{max-height:375px}.engineering-check{padding:.9rem;background:var(--accent-bg);border-left:3px solid var(--accent);margin:.9rem 0;font-size:.86rem}.results-info{margin-bottom:1rem}.results-info p{font-size:.85rem}.teacher-table td:first-child{min-width:190px}.reference-details{margin-top:.8rem}.hint-stage .method-steps{margin-top:.5rem}.method-steps li{font-size:.9rem}.example-block{background:var(--paper);padding:1rem}.example-block .triangle-svg{max-height:250px}.example-block .question-text{font-size:.88rem}.example-block .given-item strong{font-size:.85rem}.review-body .triangle-svg{max-height:270px}.review-body .formula-panel{display:none}.review-body .given-item{font-size:.75rem}.review-body .question-text{font-size:.88rem}.review-body .question-ask{font-size:.92rem}.review-card .your-entry{line-height:1.9}.save-note{margin:.85rem 0 .25rem}.footer{max-width:1400px;font-size:.67rem;padding:.8rem 1.7rem}.formula-panel .formula-math{overflow-wrap:normal}.screenreader{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}body[data-size=large] .question-text{font-size:1.27rem}body[data-size=large] .question-ask{font-size:1.19rem}body[data-size=large] .answer-part>label{font-size:1rem}body[data-size=large] .formula-math{font-size:1.2rem}
+@media(min-width:1500px){.triangle-svg{max-height:340px}.question-text{font-size:1.16rem}.formula-math{font-size:1.15rem}.tri-dimension{font-size:20px}}
+@media(max-width:1000px){.question-grid{grid-template-columns:minmax(0,1.5fr) minmax(290px,1fr)}.main{padding:1rem}.header{padding:.8rem 1rem}.question-paper{padding:1.1rem}.question-text{font-size:1.01rem}.formula-math{font-size:.95rem}.given-item{padding:.4rem .55rem}.brand small{max-width:280px}.hero{padding:1.7rem}.start-card{padding:1.6rem}}
+@media(max-width:760px){.question-grid{grid-template-columns:1fr}.header{flex-wrap:wrap}.header nav{margin-left:auto}.brand strong{font-size:1rem}.main{padding:.9rem .8rem 1.5rem}.question-paper{padding:1rem 1.1rem}.sidebar{display:flex;flex-direction:column}.formula-panel{order:0}.answer-panel{order:1}.formula-math{font-size:1.07rem}.formula-panel{padding:.9rem 1.1rem}.formula-lines{display:grid;grid-template-columns:1fr}.tri-vertex{font-size:23px}.tri-dimension{font-size:20px}.triangle-svg{min-height:190px}.start-grid{grid-template-columns:1fr}.hero{min-height:0;padding:1.6rem}.hero h1{font-size:2.5rem}.hero h1 br{display:none}.hero-sketch{display:none}.hero-footnote{display:none}.stat span{font-size:.58rem}.session-stats{gap:.8rem}.stat{padding-right:.8rem}.stat strong{font-size:1.1rem}.session-bar>button{font-size:.68rem;padding:.4rem .55rem}.diagram-toolbar{font-size:.61rem}.paper-foot{font-size:.66rem}.paired-diagrams{grid-template-columns:1fr}.paired-diagrams>div+div{border-left:0;border-top:1px solid var(--border)}.paired-diagrams .triangle-svg{max-height:240px}.joined-svg{min-height:270px}.given-item strong{font-size:.88rem}.given-item span{font-size:.67rem}.givens-grid{gap:.35rem}.footer{padding:1rem}.start-card{padding:1.5rem}.start-card h2{font-size:1.45rem}.diagram-big{min-width:600px}.diagram-dialog .dialog-body{padding:.7rem}.question-text{font-size:1.04rem}.paper-heading h2{font-size:1.2rem}.question-ask{font-size:1rem}.hero p{max-width:none}}
+@media(max-width:380px){.header nav{gap:.3rem}.header nav button{font-size:.7rem;padding:.45rem .55rem}.brand small{font-size:.6rem}.stat{padding-right:.6rem}.stat span{font-size:.53rem}.session-stats{gap:.6rem}.formula-math{font-size:.99rem}.main{padding:.7rem}.question-paper{padding:1rem}.given-item{padding:.32rem .45rem}}
+@media print{.header,.footer,.sidebar,.paper-tools,.diagram-toolbar,.save-note,.toolbar,button,dialog,.session-bar,.notice{display:none!important}.triangle-svg{max-height:250px}.triangle-svg text{fill:#111!important;stroke:#fff!important}.tri-edge{stroke:#111}.tri-face{fill:#eee}.formula-panel{break-inside:avoid}.review-card{break-inside:avoid}.review-body .question-ask{font-size:11pt}.review-body .givens-grid{display:flex}.review-body .diagram-box{max-width:450px;margin:.5rem auto}}
 
-    /* Top bar */
-    .topbar{
-      max-width:980px;margin:0.15rem auto 0.65rem;display:flex;gap:0.6rem;
-      justify-content:space-between;align-items:center;padding:0 0.6rem
-    }
-    .badge{
-      background:#fff;border:1px solid rgba(106,92,255,.25);border-radius:14px;
-      padding:0.5rem 0.7rem;font-weight:800;min-width:120px;text-align:center;
-      box-shadow:0 3px 10px rgba(106,92,255,.08)
-    }
-    .badge small{display:block;font-weight:600;color:var(--muted);margin-top:2px;font-size:.82rem}
-    .top-actions{display:flex;gap:0.45rem;align-items:center}
-    .fsBtn{
-      border:1px solid rgba(0,194,255,.5);background:linear-gradient(180deg,#ffffff,#f3fcff);
-      border-radius:12px;padding:.55rem .8rem;font-weight:900;cursor:pointer;color:#0b3d4a;
-      box-shadow:0 3px 10px rgba(0,194,255,.15)
-    }
-    .fsBtn:hover{background:#ecfbff}
-
-    /* Card */
-    .card{
-      max-width:980px;margin:0.25rem auto;background:var(--surface);border-radius:16px;
-      border:2px solid rgba(106,92,255,.35);
-      box-shadow:0 12px 30px rgba(106,92,255,.12), 0 6px 14px rgba(0,0,0,.06);
-      padding:0.95rem
-    }
-    .titleRow{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
-    .qTitle{font-size:1.15rem;font-weight:900;color:#2c3477;margin:0.1rem 0}
-    .qMeta{color:var(--muted);font-size:.95rem}
-
-    .statement{font-size:1.5rem;margin:0.55rem 0 0.7rem;line-height:1.35}
-    .statement b{font-weight:900}
-
-    details{border:1px solid rgba(106,92,255,.3);border-radius:12px;margin:0.5rem 0;background:#fbfcff}
-    summary{cursor:pointer;font-weight:900;color:#2c3477;padding:0.6rem 0.8rem;list-style:none}
-    summary::-webkit-details-marker{display:none}
-    .hint{padding:0 0.9rem 0.85rem;font-size:1rem;color:#1f2a44}
-
-    /* EXTRA spacing in the refresher formulas (not squashed) */
-    #globalHint .hint ul{margin:0;padding-left:1.2rem;line-height:1.7}
-    #globalHint .hint li{margin:.48rem 0}
-
-    /* Inputs */
-    .io{display:grid;gap:0.8rem;margin-top:0.5rem}
-    .row{display:grid;grid-template-columns:1.2fr auto auto auto 1fr;align-items:center;gap:.6rem}
-    .row label{font-weight:900;color:#1f2a44;font-size:1.05rem}
-    .unit{
-      background:linear-gradient(180deg,#eef4ff,#f7fbff);
-      border:1px solid rgba(0,194,255,.35);
-      color:#173a56;border-radius:10px;padding:0.35rem 0.6rem;font-weight:900;min-width:6.5rem;text-align:center
-    }
-    .num{
-      width:var(--field-w);text-align:center;border:1px solid rgba(106,92,255,.45);
-      border-radius:10px;font-size:1.02rem;padding:.48rem .4rem;background:linear-gradient(180deg,#ffffff,#f6f7ff);
-      box-shadow:inset 0 1px 2px rgba(0,0,0,.06)
-    }
-    .num:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(106,92,255,.18)}
-
-    /* Markers & feedback */
-    .marker{font-size:1.45rem;font-weight:900;min-width:1.9rem;text-align:center}
-    .ok{color:var(--success); animation:pop .25s ease-out}
-    .no{color:var(--error)}
-    @keyframes pop { 0%{transform:scale(0.85)} 100%{transform:scale(1)} }
-    .feedback{font-size:0.95rem;color:#1f2a44}
-    .feedback .ans{font-weight:900}
-
-    /* Controls */
-    .controls{display:flex;justify-content:center;gap:.6rem;margin-top:0.75rem;flex-wrap:wrap}
-    button.primary{
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      color:#fff;border:none;border-radius:12px;padding:.7rem 1.2rem;font-weight:900;cursor:pointer;
-      box-shadow:0 8px 18px rgba(106,92,255,.25)
-    }
-    button.secondary{
-      background:#111827;color:#fff;border:none;border-radius:12px;padding:.7rem 1.2rem;font-weight:900;cursor:pointer
-    }
-    button.ghost{
-      background:linear-gradient(180deg,#ffffff,#f7f9ff);border:1px solid rgba(17,24,39,.25);
-      border-radius:12px;padding:.6rem 1rem;font-weight:900;cursor:pointer;color:#111827
-    }
-    button:disabled{opacity:.6;cursor:not-allowed}
-    #progress{font-weight:900;text-align:center;color:#111827;margin:0.15rem 0 0.6rem}
-
-    /* Start modal */
-    .modal{position:fixed;inset:0;background:rgba(15,23,42,.35);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:999}
-    .panel{
-      background:linear-gradient(180deg,#ffffff,#f7f8ff);
-      border-radius:16px;max-width:780px;width:100%;
-      box-shadow:0 18px 40px rgba(17,24,39,.25);border:2px solid rgba(106,92,255,.35)
-    }
-    .panel header{padding:0.9rem 1rem;border-bottom:1px solid rgba(106,92,255,.25)}
-    .panel header h2{margin:0;color:#2c3477}
-    .panel .content{padding:1rem;display:grid;gap:0.9rem}
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
-    .field{display:grid;gap:0.35rem}
-    .field input[type=text], .field input[type=number], .field select{
-      padding:0.55rem .6rem;border:1px solid rgba(106,92,255,.4);border-radius:10px;background:#fff
-    }
-    .choiceRow{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
-    .pill{border:1px solid rgba(106,92,255,.45);padding:.35rem .7rem;border-radius:999px;cursor:pointer;font-weight:900;background:#fff}
-    .pill input{margin-right:.35rem}
-    .panel footer{display:flex;justify-content:space-between;align-items:center;padding:0.85rem 1rem;border-top:1px solid rgba(106,92,255,.25)}
-    .muted{color:var(--muted);font-size:.95rem}
-
-    /* End screen */
-    #endCard{max-width:820px;margin:1rem auto;padding:1rem;border-radius:14px;background:#fff;border:2px solid #2e7d32;display:none}
-    #endCard h3{margin-top:0;color:#1e7a31}
-    .wellDone{display:inline-block;background:#eaf7ec;border:1px solid #b9e2bf;color:#1e7a31;padding:.25rem .5rem;border-radius:8px;font-weight:900}
-
-    /* Figures (SVG) – larger */
-    .fig{max-width:980px;width:100%;height:auto;display:block;margin:.5rem auto;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.08);background:#fff}
-  </style>
+@media(max-width:760px){.triangle-svg .tri-vertex{font-size:28px}.triangle-svg .tri-dimension{font-size:26px}.triangle-svg .tri-angle-label{font-size:25px}.triangle-svg{min-height:0;max-height:370px}.joined-svg{min-height:0;max-height:440px}}
+</style>
 </head>
-<body>
-  <img src="https://lirp.cdn-website.com/b085c470/dms3rep/multi/opt/Bucks%2BCollege%2BGroup-e5af1b68-1920w.jpg"
-       alt="Bucks College Group logo" class="logo">
-
-  <h1>Oblique Triangles — Sine Rule &amp; Cosine Rule (Civil Engineering)</h1>
-  <p class="lede">Non‑right geometry for stays, set‑out and offsets. <strong>Triangles are not right‑angled.</strong> Symbols show angle positions only. All answers to <strong>2 dp</strong>.</p>
-
-  <div class="topbar">
-    <div style="display:flex;gap:0.6rem;align-items:center">
-      <div class="badge" id="who"><span id="whoName">Student</span><small>Participant</small></div>
-      <div class="badge" id="mode"><span id="modeTxt">Timed</span><small>Mode</small></div>
-      <div class="badge" id="timer"><span id="timeTxt">—</span><small>Timer</small></div>
-      <div class="badge" id="scoreTop"><span id="scoreTopVal">0 / 0</span><small>Score</small></div>
-    </div>
-    <div class="top-actions">
-      <button class="fsBtn" id="fsBtn" title="Toggle full screen">⛶ Full screen</button>
-    </div>
-  </div>
-
-  <!-- Quick refresher only -->
-  <div class="card" id="globalHint">
-    <details open>
-      <summary>Quick refresher (formulas)</summary>
-      <div class="hint">
-        <ul>
-          <li><strong>Sine Rule:</strong> \(\displaystyle \frac{a}{\sin A}=\frac{b}{\sin B}=\frac{c}{\sin C}\).</li>
-          <li><strong>Cosine Rule:</strong> \(\displaystyle
-            a^2=b^2+c^2-2bc\cos A,\quad
-            b^2=c^2+a^2-2ca\cos B,\quad
-            c^2=a^2+b^2-2ab\cos C.\)</li>
-          <li><strong>Rearrange as needed.</strong> Round final answers to <strong>2 dp</strong>.</li>
-        </ul>
-      </div>
-    </details>
-  </div>
-
-  <!-- Question card -->
-  <div class="card" id="qCard" style="display:none">
-    <div class="titleRow">
-      <div>
-        <div class="qTitle" id="qTitle">Question</div>
-        <div class="qMeta">Use the to‑scale diagram. Enter each requested value to <strong>2 dp</strong>, then click <strong>Check</strong>.</div>
-      </div>
-      <div class="qMeta" id="progress">Question 1</div>
-    </div>
-
-    <div class="statement" id="statement"></div>
-
-    <details id="whyBox">
-      <summary>Why this matters (click to expand)</summary>
-      <div class="hint" id="whyHtml"></div>
-    </details>
-
-    <div class="io" id="io"></div>
-
-    <div class="controls">
-      <button class="primary" id="checkBtn">Check</button>
-      <button class="ghost" id="nextBtn" disabled>Next</button>
-      <button class="secondary" id="newBtn">New questions</button>
-    </div>
-  </div>
-
-  <!-- End summary -->
-  <div id="endCard">
-    <h3>Summary</h3>
-    <p class="wellDone" id="endMsg"></p>
-    <ul>
-      <li><strong>Name:</strong> <span id="sumName"></span></li>
-      <li><strong>Mode:</strong> <span id="sumMode"></span></li>
-      <li><strong>Score:</strong> <span id="sumScore"></span></li>
-      <li><strong>Time used:</strong> <span id="sumTime"></span></li>
-    </ul>
-    <div style="display:flex;gap:.6rem;justify-content:center;margin-top:.4rem">
-      <button class="secondary" id="restartBtn">Restart</button>
-    </div>
-  </div>
-
-  <!-- Start menu modal -->
-  <div class="modal" id="startModal">
-    <div class="panel">
-      <header><h2>Start Worksheet</h2></header>
-      <div class="content">
-        <div class="field">
-          <label for="nameInput"><strong>Your name</strong></label>
-          <input id="nameInput" type="text" placeholder="Type your name…" autocomplete="name">
-        </div>
-
-        <div class="field">
-          <label><strong>Mode</strong></label>
-          <div class="choiceRow">
-            <label class="pill"><input type="radio" name="mode" value="timed" checked>Timed</label>
-            <label class="pill"><input type="radio" name="mode" value="target">Target</label>
-          </div>
-        </div>
-
-        <div class="grid2">
-          <div class="field" id="timedField" style="display:block">
-            <label><strong>Time limit</strong></label>
-            <div class="choiceRow">
-              <label class="pill"><input type="radio" name="tlimit" value="600">10 minutes</label>
-              <label class="pill"><input type="radio" name="tlimit" value="1200" checked>20 minutes</label>
-              <label class="pill"><input type="radio" name="tlimit" value="1800">30 minutes</label>
-              <label class="pill"><input type="radio" name="tlimit" value="0">Unlimited</label>
-            </div>
-          </div>
-
-          <div class="field" id="targetField" style="display:none">
-            <label for="targetInput"><strong>Target (correct answers to finish)</strong></label>
-            <input id="targetInput" type="number" min="1" max="1000" step="1" value="10">
-          </div>
-        </div>
-
-        <div class="grid2">
-          <div class="field">
-            <label for="qtyInput"><strong>Total questions (per set)</strong></label>
-            <select id="qtyInput">
-              <option value="8">8</option>
-              <option value="10" selected>10</option>
-              <option value="12">12</option>
-              <option value="15">15</option>
-            </select>
-          </div>
-          <div class="field">
-            <div class="muted">Diagrams are to scale. Symbols show angle positions only (values are in the text). Answers to <strong>2 dp</strong>.</div>
-          </div>
-        </div>
-      </div>
-      <footer>
-        <span class="muted">You can generate a fresh random set any time.</span>
-        <div>
-          <button class="primary" id="startBtn">Start worksheet</button>
-        </div>
-      </footer>
-    </div>
-  </div>
-
-  <div id="errBanner" style="display:none;position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
-    background:#fee;border:2px solid #e53935;color:#7f1d1d;padding:.5rem .8rem;border-radius:10px;font-weight:800;z-index:2000"></div>
-  <noscript><div style="margin:1rem auto;max-width:980px;color:#b91c1c;background:#fee;border:2px solid #e11d48;padding:.6rem;border-radius:12px;font-weight:800">This worksheet needs JavaScript enabled.</div></noscript>
-
-<script>
+<body data-theme="light">
+<a class="skip-link" href="#main">Skip to activity</a>
+<header class="header"><div class="brand"><span class="brand-mark" aria-hidden="true">∠</span><div><strong>Sine &amp; Cosine Studio</strong><small>Non-right-angled triangles · T Level engineering practice</small></div></div><nav aria-label="Activity tools"><button class="quiet" id="teacherBtn" hidden>Teacher</button><button class="quiet" id="textBtn" aria-pressed="false">Larger text</button><button class="quiet" id="themeBtn" aria-pressed="false">Dark mode</button></nav></header>
+<main class="main" id="main">
+<div class="notice warn" id="storageNotice" role="status" hidden></div><div class="notice bad" id="errorNotice" role="alert" hidden></div>
+<section id="startView" aria-labelledby="startTitle"><div class="start-grid"><div class="hero"><p class="eyebrow">ENGINEERING MATHEMATICS</p><h1 id="startTitle">Find the missing<br><span>link.</span></h1><p>Brackets, linkages, bracing and setting-out.<br>Use the sine and cosine rules to turn a drawing into a calculation.</p><div class="hero-sketch" aria-hidden="true"><svg viewBox="0 0 400 150"><path d="M50 115 L335 115 L235 20 Z" fill="none" stroke="#b2e5d4" stroke-width="2"/><path d="M50 115 L235 20" fill="none" stroke="#fff" stroke-width="4" stroke-dasharray="7 5"/><circle cx="50" cy="115" r="5" fill="#fff"/><circle cx="335" cy="115" r="5" fill="#fff"/><circle cx="235" cy="20" r="5" fill="#fff"/><g fill="#fff" font-family="system-ui" font-size="19"><text x="28" y="136">A</text><text x="343" y="136">B</text><text x="237" y="13">C</text><text x="116" y="50">?</text></g></svg></div><p class="hero-footnote">READ THE DRAWING &nbsp; / &nbsp; CHOOSE THE RULE &nbsp; / &nbsp; CHECK THE UNITS</p></div><div class="panel start-card"><p class="eyebrow">ONE QUESTION AT A TIME</p><h2>Bring your calculator.<br>Build your confidence.</h2><p>Start with a non-right-angled bracket.<br>More demanding engineering problems follow as you get the ideas right.</p><div class="ready-note"><strong>Scientific calculator required — use DEG mode.</strong><br>Do your working on paper.<br>Keep intermediate values unrounded.<br>Give final answers to two decimal places.</div><button class="primary start-button" id="startBtn">Start <span aria-hidden="true">→</span></button><p class="help" id="startNote">No setup menus or time limit.<br>Formulas stay visible on every question.</p><p class="help">Answers within ±1.00 in the displayed unit are accepted.<br>This is a classroom rule, not a real engineering tolerance.</p></div></div></section>
+<section id="sessionView" aria-label="Engineering practice" hidden><div class="session-bar"><div class="session-stats"><div class="stat"><span>Accepted parts</span><strong id="partsCount">0</strong></div><div class="stat"><span>Independent questions</span><strong id="firstCount">0</strong></div><div class="stat"><span>Practice points</span><strong id="pointsCount">0</strong></div></div><button class="quiet" id="finishBtn">Finish &amp; review</button></div>
+<div class="question-grid"><article class="panel question-paper" aria-labelledby="questionTitle"><div class="paper-heading"><h2 id="questionTitle" tabindex="-1">Question 1</h2><span>CALCULATOR · DEG</span></div><div class="question-text" id="questionBody"></div><div class="paper-tools"><button id="helpBtn" class="quiet">Help with the method</button><button id="reviewMethodBtn" class="quiet" hidden>Review this method</button></div><div class="paper-foot">a = BC, b = AC and c = AB.<br>Each lower-case side faces the matching upper-case angle.<br>Use paper for your working. Calculate from the stated values.</div></article><div class="sidebar"><aside class="panel answer-panel" aria-labelledby="answerTitle"><h2 id="answerTitle">Your answer</h2><p class="help">Use the unit beside each box.<br>Give final answers to two decimal places.</p><form id="answerForm" novalidate><div id="answerFields"></div><div id="feedback" class="notice" role="status" aria-live="polite" hidden></div><button id="checkBtn" class="primary check-button" type="submit">Check answer</button><button id="nextBtn" class="primary next-button" type="button" hidden>Next question →</button><div class="answer-actions"><button id="freshBtn" class="text-button" type="button">I’m stuck — take a fresh question</button></div></form><div class="answer-end"><strong>±1.00 inclusive · steps of 0.01</strong><br>Accepted parts stay locked while you check the rest.<br><button id="toleranceBtn" class="text-button">How the tolerance works</button></div></aside><section class="panel formula-panel" aria-label="Formula reference"><h3>Formula reference · degrees</h3><div id="formulaBody"></div></section></div></div><p id="saveNote" class="save-note"></p></section>
+<section id="resultsView" aria-labelledby="resultsTitle" hidden><div class="results-header"><p class="eyebrow">YOUR PRACTICE</p><h1 id="resultsTitle" tabindex="-1">Review the calculations.</h1><p id="resultsNote" class="help"></p></div><div id="metrics" class="metrics"></div><div class="toolbar"><button id="continueBtn" class="primary">Keep practising</button><button id="newBtn" class="quiet">Start a new round</button><button id="exportBtn" class="quiet">Export results</button><button id="printBtn" class="quiet">Print review</button></div><div id="resultsInfo" class="results-info"></div><p class="help">Only closed, attempted questions release solutions.<br>They cannot be reopened for points. Your teacher should check your paper methods.</p><h2>Question review</h2><div id="reviews"></div></section>
+</main>
+<footer class="footer"><span>Independent engineering mathematics practice. Not an awarding-body product.</span><button id="aboutBtn" class="text-button">About &amp; sources</button></footer>
+<dialog id="helpDialog" aria-labelledby="helpTitle"><div class="dialog-header"><h2 id="helpTitle">Build the method</h2><button class="close-button" data-close="helpDialog" aria-label="Close help">×</button></div><div class="dialog-body"><p class="help">Opening this help is recorded as supported work.<br>The current numerical answer is not revealed.</p><div class="hint-stage"><ol id="hintSteps" class="method-steps"></ol><button id="moreHintBtn" class="quiet">Next hint</button></div><details class="native-details"><summary>Using your scientific calculator</summary><p>Set the calculator to <strong>DEG</strong>.<br>For a length using the cosine rule, put the complete calculation inside the square root.<br>For an angle, use the inverse sine or inverse cosine key, often accessed with SHIFT.<br>sin⁻¹ means inverse sine here, not 1 ÷ sin.<br>Keep the displayed answer in calculator memory or use ANS for the next part.</p></details><details id="exampleDetails" class="native-details"><summary>A worked example with different numbers</summary><div id="exampleBody"></div></details></div></dialog>
+<dialog id="methodDialog" aria-labelledby="methodTitle"><div class="dialog-header"><h2 id="methodTitle">Review this closed question</h2><button class="close-button" data-close="methodDialog" aria-label="Close method review">×</button></div><div class="dialog-body"><p class="help">This question is closed and cannot earn further points.</p><div id="closedSteps" class="solution"></div><button id="moreSolutionBtn" class="quiet">Next step</button><div id="engineeringCheck" class="engineering-check" hidden></div></div></dialog>
+<dialog id="diagramDialog" class="diagram-dialog" aria-labelledby="diagramTitle"><div class="dialog-header"><h2 id="diagramTitle">Enlarged drawing</h2><button class="close-button" data-close="diagramDialog" aria-label="Close drawing">×</button></div><div class="dialog-body"><div class="zoom-tools"><button id="zoomOutBtn" class="quiet" aria-label="Zoom out">−</button><output id="zoomValue" aria-live="polite">100%</output><button id="zoomInBtn" class="quiet" aria-label="Zoom in">+</button><button id="zoomResetBtn" class="quiet">Reset view</button></div><div id="diagramViewport" class="diagram-viewport"><div id="largeDiagram" class="diagram-big"></div></div><p class="help">Schematic. Do not measure the screen.<br>Use the given numbers. Scroll or swipe across an enlarged drawing.</p></div></dialog>
+<dialog id="teacherDialog" class="teacher-dialog" aria-labelledby="teacherTitle"><div class="dialog-header"><h2 id="teacherTitle">Teacher glance</h2><button class="close-button" data-close="teacherDialog" aria-label="Close teacher view">×</button></div><div class="dialog-body"><div id="teacherSummary"></div><div id="teacherTable"></div><details class="native-details"><summary>How the next question is chosen</summary><p>Every new round starts with a cosine-rule bracket, then a sine-rule linkage. Two independent first-check successes on different variations at the working demand unlock more demanding work. A tolerance-only acceptance counts as a success and is labelled separately.</p><p>Support and later rechecks follow an unsuccessful question. Repeated difficulty reduces the working demand without deleting previous achievements. Supported answers count as practice but do not alone unlock harder work. There is no speed penalty.</p><p>Sine and cosine practice are mixed, with untested available variations prioritised. Encountering a template is not mastery. This is the learner’s local device view, not a networked dashboard, an authenticated assessment or a course grade.</p></details></div></dialog>
+<dialog id="toleranceDialog" aria-labelledby="toleranceTitle"><div class="dialog-header"><h2 id="toleranceTitle">The classroom acceptance band</h2><button class="close-button" data-close="toleranceDialog" aria-label="Close tolerance explanation">×</button></div><div class="dialog-body"><p>Entries and calculated model answers are rounded to two decimal places, with half-hundredths rounded away from zero. Marking then compares exact integer hundredths.</p><p>For a model answer of <strong>24.36</strong>, every hundredth from <strong>23.36 to 25.36 inclusive</strong> is accepted.<br>23.35 and 25.37 are outside the band.</p><p>The tolerance is absolute, not a percentage.<br>It means ±1 mm in a millimetre box, ±1 m in a metre box and ±1° for an angle.</p><p>Model matches and tolerance-only acceptances are recorded separately.<br>Aim for the model answer to two decimal places.</p><p><strong>This deliberately generous rule is not a manufacturing, surveying or examination tolerance.</strong><br>These mathematical models do not establish a structure’s strength, suitability or safety.</p></div></dialog>
+<dialog id="aboutDialog" aria-labelledby="aboutTitle"><div class="dialog-header"><h2 id="aboutTitle">About this resource</h2><button class="close-button" data-close="aboutDialog" aria-label="Close information">×</button></div><div class="dialog-body"><p>This app develops the supplied oblique-triangle worksheet. It retains its 21 given/asked arrangements and civil-engineering contexts, and adds 15 entry-level and applied templates. Several of the original arrangements deliberately rotate the letters: they are not claimed to be different mathematical laws.</p><p>Questions stay on sine and cosine rules from the start. Additional contexts include mechanical linkages, bracket hole centres, cutting allowances, mixed units, changed opening angles, a shared member between two panels, and a specified obtuse configuration.</p><p>The common-core reference is City &amp; Guilds Design and Development for Engineering and Manufacturing specification v1.5, Unit 300, 4.1, printed page 54. It explicitly includes dimensions of triangles using the sine and cosine rules. Unit 300, 5.1 supports the unit-conversion practice. The scenarios are teaching models, not copied exam items or a complete T Level course.</p><p>All answers are recomputed from the exact given numbers shown to students. Triangle data are validated, including angle ranges and the possibility of a second sine-rule solution. A two-solution template explicitly specifies the obtuse position. Other two-side/one-opposite-angle templates have one valid solution.</p><p>Trigonometric results are generally approximations. The app retains full precision between steps and rounds only final answers to two decimal places. It does not claim that the underlying exact lengths or angles all have terminating decimal expansions.</p><div class="source-list"><p><a href="https://www.cityandguilds.com/-/media/productdocuments/engineering/mechanical/8730/centre-documents/design-and-development-for-engineering-and-manufacturing-8714/dd-t-level-technical-qualification-specification-v1%2C-d-%2C5-pdf.pdf" target="_blank" rel="noopener noreferrer">City &amp; Guilds specification v1.5</a><br>Unit 300, 4.1 and 5.1. Printed pages 54 and 56.</p><p><a href="https://www.cityandguilds.com/-/media/productdocuments/engineering/mechanical/8730/assessment-materials/sample-core-exams/e-and-m-core-exam-paper-1-formulae-sheet-source-document-v1%2C-d-%2C0-pdf.pdf" target="_blank" rel="noopener noreferrer">Engineering and Manufacturing sample Paper 1 formula sheet</a><br>Page 2: sine rule and all three arrangements of the cosine rule. The app adds rearranged angle support.</p></div><p class="help">Sources checked 2 October 2026.<br>Independent supplementary practice; not produced or endorsed by City &amp; Guilds.</p><p class="help">The activity has no external scripts, fonts or images. It sends no learner data to a server. Progress is saved only in this browser, when permitted. Export your results before leaving a shared device.</p><p class="help">There is no reveal-all button. Only permanently closed questions with a checked attempt release their solutions. A standalone HTML file is not tamper-proof against developer tools, edited storage or outside help.</p></div></dialog>
+<dialog id="confirmDialog" class="confirm-dialog" aria-labelledby="confirmTitle"><div class="dialog-header"><h2 id="confirmTitle">Please confirm</h2><button class="close-button" data-close="confirmDialog" aria-label="Cancel">×</button></div><div class="dialog-body"><p id="confirmText"></p><div class="toolbar"><button id="confirmYes" class="primary">Continue</button><button class="quiet" data-close="confirmDialog">Cancel</button></div></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<noscript><p class="notice bad">JavaScript is needed to run this activity.</p></noscript>
+<script>(()=>{'use strict';
+/* Engineering Sine & Cosine Studio. Deterministic, dependency-free question engine.
+   Displayed givens are the source of truth. Full precision is retained internally.
+   Numeric marking compares integer hundredths to the rounded model answer. */
+const TriangleEngine = (() => {
 'use strict';
-
-window.addEventListener('error', (e) => {
-  const b = document.getElementById('errBanner');
-  b.textContent = 'Error: ' + (e.message || 'Unknown script error');
-  b.style.display = 'block';
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-
-  /* ========= Helpers ========= */
-  const rnd=(m,M)=>Math.floor(Math.random()*(M-m+1))+m;
-  const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
-  const rndf=(min,max,dp=2)=>+((Math.random()*(max-min)+min).toFixed(dp));
-  const round2=x=>Math.round((+x + Number.EPSILON)*100)/100;
-  const to2=x=>isFinite(x)?round2(x).toFixed(2):'—';
-  const parseNum = (input) => {
-    const raw = (typeof input === 'string' ? input : (input?.value ?? '')).toString().trim().replace(',','.');
-    const x = parseFloat(raw);
-    return isFinite(x)?x:NaN;
-  };
-  const deg = r=>r*180/Math.PI;
-  const rad = d=>d*Math.PI/180;
-  // accept within ±0.09 (quietly)
-  const within09=(a,b)=>isFinite(a)&&isFinite(b)&&Math.abs(a-b)<=0.09+1e-9;
-  const secsToMMSS=s=>{const m=Math.floor(s/60), ss=String(s%60).padStart(2,'0'); return `${m}:${ss}`;};
-  const unit = (u) => ({ m:'m', deg:'°' }[u]||u);
-  const lines = arr => arr.join('<br>');
-
-  /* ========= SVG & Robust Layout ========= */
-  function figWrap(viewW, viewH, inner){
-    return `<svg class="fig" viewBox="0 0 ${viewW} ${viewH}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="diagram">
-      <defs>
-        <style>
-          .tri{stroke:#1f2a44;stroke-width:2}
-          .tri.c1{fill:rgba(106,92,255,.24)}
-          .tri.c2{fill:rgba(0,194,255,.22)}
-          .tri.c3{fill:rgba(255,159,67,.22)}
-          .tri.c4{fill:rgba(34,197,94,.22)}
-          .tri.c5{fill:rgba(236,72,153,.22)}
-          .tri.c6{fill:rgba(14,165,233,.22)}
-          .tri.c7{fill:rgba(250,204,21,.22)}
-
-          .aux{stroke:#334155;stroke-dasharray:6 4;stroke-width:2;fill:none}
-          .tick{stroke:#1f2a44;stroke-width:2}
-          .dim{
-            font:700 21px/1 Inter, system-ui;
-            fill:#0f172a;
-            paint-order:stroke fill; stroke:#ffffff; stroke-width:3px;
-          }
-          .ang{
-            font:800 26px/1.1 Inter, system-ui;
-            fill:#1e2a66;
-            paint-order:stroke fill; stroke:#ffffff; stroke-width:3.5px;
-          }
-          .label{font:800 16px/1 Inter, system-ui; fill:#2c3477; paint-order:stroke fill; stroke:#fff; stroke-width:1.5px;}
-        </style>
-      </defs>
-      ${inner}
-    </svg>`;
-  }
-
-  // Compute raw coords (A=0,0; B=c,0; C=(cx,cy))
-  function coreCoords(a,b,c){
-    const cx = (b*b + c*c - a*a)/(2*c);
-    const h2 = Math.max(1e-9, b*b - cx*cx);
-    const cy = Math.sqrt(h2);
-    return {cx, cy};
-  }
-
-  function layoutOblique(a,b,c, w=980, h=720, margins={left:160,right:160,top:120,baseBottom:220}){
-    const {cx, cy} = coreCoords(a,b,c);
-    const minX = Math.min(0, c, cx);
-    const maxX = Math.max(0, c, cx);
-    const rawWidth = maxX - minX;
-
-    const availW = Math.max(240, w - margins.left - margins.right);
-    const availH = Math.max(180, h - margins.top - margins.baseBottom);
-
-    const s = Math.min(availW/rawWidth, availH/cy);
-
-    const xShift = margins.left + (availW - rawWidth*s)/2 - minX*s;
-    const yTop = margins.top + (availH - cy*s)/2;
-    const yBase = yTop + cy*s;
-
-    const A = [xShift + 0,     yBase];
-    const B = [xShift + c*s,   yBase];
-    const C = [xShift + cx*s,  yTop];
-
-    return { A, B, C, w, h };
-  }
-
-  const insetFor = lenPx => clamp(lenPx*0.12, 12, 30);
-
-  function dimBase(A,B,label,w,h){
-    const [x0,y0]=A, [x1,y1]=B;
-    const L = Math.hypot(x1-x0,y1-y0);
-    const inset=insetFor(L), off=68, ext=34, dimY=y0+off;
-    return `
-      <line x1="${x0}" y1="${y0}" x2="${x0}" y2="${dimY+ext}" class="aux"/>
-      <line x1="${x1}" y1="${y1}" x2="${x1}" y2="${dimY+ext}" class="aux"/>
-      <line x1="${x0+inset}" y1="${dimY}" x2="${x1-inset}" y2="${dimY}" class="aux"/>
-      <line x1="${x0+inset}" y1="${dimY-7}" x2="${x0+inset}" y2="${dimY+7}" class="tick"/>
-      <line x1="${x1-inset}" y1="${dimY-7}" x2="${x1-inset}" y2="${dimY+7}" class="tick"/>
-      ${label?`<text x="${(x0+x1)/2}" y="${dimY+22}" text-anchor="middle" dominant-baseline="hanging" class="dim">${label}</text>`:''}
-    `;
-  }
-
-  function dimAlongEdge(P,Q,G,label,w,h){
-    if(!label) return '';
-    const margin=12;
-    const [px,py]=P, [qx,qy]=Q;
-    const dx=qx-px, dy=qy-py;
-    const L = Math.hypot(dx,dy)||1; const tx=dx/L, ty=dy/L;
-
-    let nx=-ty, ny=tx;
-    const mx=(px+qx)/2, my=(py+qy)/2;
-    if(nx*(mx-G[0]) + ny*(my-G[1]) < 0){ nx=-nx; ny=-ny; }
-
-    const inset=insetFor(L), off=44, ext=32;
-
-    function pack(nx,ny){
-      const P1x=px + nx*off + tx*inset, P1y=py + ny*off + ty*inset;
-      const P2x=qx + nx*off - tx*inset, P2y=qy + ny*off - ty*inset;
-      const EA1x1=px + nx*2, EA1y1=py + ny*2;
-      const EA1x2=px + nx*(off+ext), EA1y2=py + ny*(off+ext);
-      const EA2x1=qx + nx*2, EA2y1=qy + ny*2;
-      const EA2x2=qx + nx*(off+ext), EA2y2=qy + ny*(off+ext);
-      const midx=(P1x+P2x)/2, midy=(P1y+P2y)/2;
-      let angle = Math.atan2(P2y-P1y, P2x-P1x)*180/Math.PI;
-      if(angle>90) angle-=180;
-      if(angle<-90) angle+=180;
-      const labOff=22;
-      const lx = midx + nx*labOff, ly = midy + ny*labOff;
-      return {P1x,P1y,P2x,P2y,EA1x1,EA1y1,EA1x2,EA1y2,EA2x1,EA2y1,EA2x2,EA2y2,lx,ly,angle};
-    }
-
-    let d=pack(nx,ny);
-    const inside = (d)=>(
-      d.lx>margin && d.ly>margin && d.lx<w-margin && d.ly<h-margin &&
-      d.P1x>margin && d.P1y>margin && d.P2x>margin && d.P2y>margin &&
-      d.P1x<w-margin && d.P1y<h-margin && d.P2x<w-margin && d.P2y<h-margin &&
-      d.EA1x2>margin && d.EA1y2>margin && d.EA2x2>margin && d.EA2y2>margin &&
-      d.EA1x2<w-margin && d.EA1y2<h-margin && d.EA2x2<w-margin && d.EA2y2<h-margin
-    );
-    if(!inside(d)){ nx=-nx; ny=-ny; d=pack(nx,ny); }
-
-    return `
-      <line x1="${d.EA1x1}" y1="${d.EA1y1}" x2="${d.EA1x2}" y2="${d.EA1y2}" class="aux"/>
-      <line x1="${d.EA2x1}" y1="${d.EA2y1}" x2="${d.EA2x2}" y2="${d.EA2y2}" class="aux"/>
-      <line x1="${d.P1x}" y1="${d.P1y}" x2="${d.P2x}" y2="${d.P2y}" class="aux"/>
-      <text x="${d.lx}" y="${d.ly}" text-anchor="middle" dominant-baseline="middle"
-        class="dim" transform="rotate(${d.angle} ${d.lx} ${d.ly})">${label}</text>
-    `;
-  }
-
-  function angleSymbol(V, V1, V2, sym){
-    const [vx,vy]=V, [v1x,v1y]=V1, [v2x,v2y]=V2;
-    const u1x=v1x-vx, u1y=v1y-vy, u2x=v2x-vx, u2y=v2y-vy;
-    const L1=Math.hypot(u1x,u1y)||1, L2=Math.hypot(u2x,u2y)||1;
-    let bx=u1x/L1 + u2x/L2, by=u1y/L1 + u2x/L2;
-    const bL=Math.hypot(bx,by)||1; bx/=bL; by/=bL;
-    const d=28;
-    const lx = vx + bx*d, ly = vy + by*d;
-    return `<text x="${lx}" y="${ly}" class="ang">${sym}</text>`;
-  }
-  function pickTriClass(){ return 'c' + rnd(1,7); }
-
-  function svgOblique(a,b,c, labels, caption='Oblique triangle', triClass='c1'){
-    const w=980, h=720;
-    const {A, B, C} = layoutOblique(a,b,c,w,h,{left:160,right:160,top:120,baseBottom:230});
-    const G=[(A[0]+B[0]+C[0])/3, (A[1]+B[1]+C[1])/3];
-
-    const inner=`
-      <text x="${w/2}" y="30" text-anchor="middle" class="label">${caption}</text>
-      <polygon points="${A[0]},${A[1]} ${B[0]},${B[1]} ${C[0]},${C[1]}" class="tri ${triClass}"/>
-
-      ${angleSymbol(A, B, C, 'A')}
-      ${angleSymbol(B, A, C, 'B')}
-      ${angleSymbol(C, A, B, 'C')}
-
-      ${dimBase(A,B, labels.c, w, h)}
-      ${dimAlongEdge(A,C,G, labels.b, w, h)}
-      ${dimAlongEdge(B,C,G, labels.a, w, h)}
-    `;
-    return figWrap(w,h,inner);
-  }
-
-  /* ========= IO builder ========= */
-  function buildIORows(parts){
-    const io = document.getElementById('io');
-    io.innerHTML = '';
-    parts.forEach((p,i) => {
-      const row = document.createElement('div');
-      row.className = 'row';
-      row.innerHTML = `
-        <label>${p.prompt}</label>
-        <input class="num" id="ans-${i}" type="text" inputmode="decimal" autocomplete="off" placeholder="e.g. 12.34">
-        <span class="unit">${unit(p.unit)}</span>
-        <span class="marker" id="mark-${i}"></span>
-        <span class="feedback" id="fb-${i}"></span>
-      `;
-      io.appendChild(row);
-    });
-    io.querySelectorAll('input.num').forEach(inp=>{
-      inp.addEventListener('blur', ()=>{
-        const x = parseNum(inp.value);
-        if(isFinite(x)) inp.value = to2(x);
-      });
-    });
-  }
-
-  /* ========= Triangle generation ========= */
-
-  function notRight(A,B,C){
-    return Math.abs(A-90)>0.8 && Math.abs(B-90)>0.8 && Math.abs(C-90)>0.8;
-  }
-
-  function randomTriangle(){
-    // Make a non-right oblique triangle with reasonable angles and sides
-    for(let tries=0; tries<200; tries++){
-      const A = rndf(28, 118, 2);
-      const B = rndf(28, 118, 2);
-      const C = round2(180 - A - B);
-      if(C < 28 || C > 118) continue;
-      if(!notRight(A,B,C)) continue;
-
-      const c = rndf(10, 32, 2);                  // choose base to scale the figure
-      const k = c / Math.sin(rad(C));             // common ratio a/sinA = b/sinB = c/sinC
-      const a = k * Math.sin(rad(A));
-      const b = k * Math.sin(rad(B));
-
-      if(a>4 && b>4 && a<60 && b<60) return {A,B,C,a,b,c,k};
-    }
-    // deterministic fallback (should not hit)
-    const A=60, B=50, C=70, c=20, k=c/Math.sin(rad(C));
-    return {A,B,C,a:k*Math.sin(rad(A)), b:k*Math.sin(rad(B)), c, k};
-  }
-
-  // SSA uniqueness guard: given angle X with opposite side x and another side y
-  function ssaUnique(angleDeg, oppSide, otherSide){
-    if(angleDeg > 90) return true;          // obtuse -> unique
-    if(Math.abs(angleDeg-90)<0.8) return false; // avoid near-right triangles altogether
-    // For a valid triangle from our generator, oppSide <= otherSide can cause ambiguity when angle is acute.
-    // Avoid two-solution region by insisting oppSide >= otherSide.
-    return oppSide >= otherSide;
-  }
-
-  function triangleFor(predicate){
-    for(let i=0;i<400;i++){
-      const T=randomTriangle();
-      if(predicate(T)) return T;
-    }
-    // Last-resort tweak (rare)
-    for(let j=0;j<200;j++){
-      let T=randomTriangle();
-      T.A = rndf(100, 130, 2);
-      T.C = round2(180 - T.A - T.B);
-      if(T.C > 28 && T.C < 118 && notRight(T.A,T.B,T.C)){
-        const c = rndf(10, 32, 2);
-        const k = c/Math.sin(rad(T.C));
-        T.a = k*Math.sin(rad(T.A)); T.b = k*Math.sin(rad(T.B)); T.c = c; T.k=k;
-        if(predicate(T)) return T;
-      }
-    }
-    return randomTriangle();
-  }
-
-  /* ========= Scenario sets (21 engineering contexts) ========= */
-
-  // Given/asked sets per your list
-  const scenarioDefs = [
-    // SSS
-    {num:1, givens:['a','b','c'], asks:['A','B']},
-    {num:2, givens:['a','b','c'], asks:['B','C']},
-    {num:3, givens:['a','b','c'], asks:['A','C']},
-    // SAS
-    {num:4, givens:['a','b','C'], asks:['c','A']},
-    {num:5, givens:['b','c','A'], asks:['a','B']},
-    {num:6, givens:['a','c','B'], asks:['b','C']},
-    // AAS/ASA with one side
-    {num:7, givens:['A','B','c'], asks:['C','a']},
-    {num:8, givens:['B','C','a'], asks:['A','b']},
-    {num:9,  givens:['A','C','b'], asks:['B','c']},
-    {num:10, givens:['A','B','a'], asks:['C','b']},
-    {num:11, givens:['A','C','a'], asks:['B','c']},
-    {num:12, givens:['B','C','b'], asks:['A','a']},
-    {num:13, givens:['A','B','b'], asks:['C','a']},
-    {num:14, givens:['A','C','c'], asks:['B','a']},
-    {num:15, givens:['B','C','c'], asks:['A','b']},
-    // SSA (guarded for uniqueness)
-    {num:16, givens:['A','a','b'], asks:['B','c'], ssa: {angle:'A', opp:'a', other:'b'}},
-    {num:17, givens:['A','a','c'], asks:['C','b'], ssa: {angle:'A', opp:'a', other:'c'}},
-    {num:18, givens:['B','b','a'], asks:['A','c'], ssa: {angle:'B', opp:'b', other:'a'}},
-    {num:19, givens:['B','b','c'], asks:['C','a'], ssa: {angle:'B', opp:'b', other:'c'}},
-    {num:20, givens:['C','c','a'], asks:['A','b'], ssa: {angle:'C', opp:'c', other:'a'}},
-    {num:21, givens:['C','c','b'], asks:['B','a'], ssa: {angle:'C', opp:'c', other:'b'}},
-  ];
-
-  // Human‑readable labels & units
-  const NAMES = { A:'angle A', B:'angle B', C:'angle C', a:'side a', b:'side b', c:'side c' };
-  const UNITS = {A:'deg', B:'deg', C:'deg', a:'m', b:'m', c:'m'};
-
-  // Contextual engineering prompts for each of the 21 scenarios
-  const SCENARIOS_META = [
-    { // 1
-      name:'Roof bracing panel',
-      intro:'A roof bracing panel links nodes on a truss chord, forming triangle <b>ABC</b>.',
-      caption:'Roof bracing (to scale)',
-      why:['Determines gusset orientation and bolt edge distances.',
-           'Confirms brace geometry against fabrication drawings.',
-           'Avoids clashes with purlins and services.']
-    },
-    { // 2
-      name:'Cofferdam struts',
-      intro:'Temporary struts inside a cofferdam cell define triangle <b>ABC</b> between walings.',
-      caption:'Cofferdam struts (to scale)',
-      why:['Verifies plate seating and jack approach angles.',
-           'Improves estimation of preload jack stroke.',
-           'Supports clash checks with pumps and risers.']
-    },
-    { // 3
-      name:'Survey control triangle',
-      intro:'Two known marks and a control point form triangle <b>ABC</b> on site.',
-      caption:'Control triangle (to scale)',
-      why:['Supports closure checks before works proceed.',
-           'Builds confidence in coordinates where GNSS is screened.',
-           'Reduces re‑work during set‑out.']
-    },
-    { // 4
-      name:'Guyed mast layout',
-      intro:'Two guys and the mast base form triangle <b>ABC</b> in plan.',
-      caption:'Guyed mast (to scale)',
-      why:['Sets guy spreads clear of services.',
-           'Checks feasible turnbuckle ranges.',
-           'Assures edge distances at anchors.']
-    },
-    { // 5
-      name:'Bridge tie geometry',
-      intro:'A steel tie links anchor points across an approach, forming triangle <b>ABC</b>.',
-      caption:'Bridge tie (to scale)',
-      why:['Checks tie lengths vs fixing schedule.',
-           'Ensures clevis positions maintain clearance.',
-           'Confirms temporary clearances during install.']
-    },
-    { // 6
-      name:'Retaining wall anchors',
-      intro:'Two soil anchors and the wall toe define triangle <b>ABC</b>.',
-      caption:'Anchor fan (to scale)',
-      why:['Sets anchor fan spread to avoid utilities.',
-           'Helps select plate sizes and turnbuckles.',
-           'Ensures movement monitors have clearance.']
-    },
-    { // 7
-      name:'Traverse leg check',
-      intro:'Two observed angles and a taped baseline form triangle <b>ABC</b> for a traverse leg.',
-      caption:'Traverse check (to scale)',
-      why:['Validates angle observations against tape distances.',
-           'Provides redundancy for control.',
-           'Improves set‑out accuracy near obstructions.']
-    },
-    { // 8
-      name:'Façade corner restraint',
-      intro:'Inclined restraints from slab to a façade corner form triangle <b>ABC</b>.',
-      caption:'Façade restraint (to scale)',
-      why:['Ensures bars clear panels and brackets.',
-           'Helps order correct bar lengths.',
-           'Coordinates with edge protection fixings.']
-    },
-    { // 9
-      name:'Pipe rack bracing',
-      intro:'Diagonal bracing between racks forms triangle <b>ABC</b> around a bay.',
-      caption:'Rack bracing (to scale)',
-      why:['Confirms brace stock lengths.',
-           'Checks clearance to services.',
-           'Assists detailing for connections.']
-    },
-    { // 10
-      name:'Roof bay diagonal',
-      intro:'Pitched roof members and a diagonal form triangle <b>ABC</b> within a bay.',
-      caption:'Roof bay (to scale)',
-      why:['Verifies geometry prior to hoisting.',
-           'Prevents clashes with M&amp;E.',
-           'Supports ordering of bracing kits.']
-    },
-    { // 11
-      name:'Crane tie‑off geometry',
-      intro:'A tie‑off point, the jib and a façade corner form triangle <b>ABC</b> in plan.',
-      caption:'Crane tie‑off (to scale)',
-      why:['Checks reach without oversailing.',
-           'Positions exclusion zones.',
-           'Supports selection of tie points.']
-    },
-    { // 12
-      name:'Temporary truss check',
-      intro:'A temporary truss panel is idealised as triangle <b>ABC</b> for quick checks.',
-      caption:'Truss check (to scale)',
-      why:['Assesses panel geometry.',
-           'Identifies awkward bolt angles.',
-           'Reduces adjustments during fit‑up.']
-    },
-    { // 13
-      name:'Edge protection ties',
-      intro:'Two ties and a guardrail post form triangle <b>ABC</b>.',
-      caption:'Edge protection (to scale)',
-      why:['Ensures tie angles keep rails plumb.',
-           'Avoids over‑stressing edge anchors.',
-           'Confirms safe clearances.']
-    },
-    { // 14
-      name:'Scaffold tie triangle',
-      intro:'Two ties and a façade point form triangle <b>ABC</b> around a scaffold bay.',
-      caption:'Scaffold ties (to scale)',
-      why:['Avoids clashes with openings.',
-           'Confirms tie rod stock lengths.',
-           'Checks angles against supplier limits.']
-    },
-    { // 15
-      name:'Survey offsets',
-      intro:'Two sight lines to an offset peg form triangle <b>ABC</b> on a curve.',
-      caption:'Offset triangle (to scale)',
-      why:['Speeds chainage checks where GNSS is screened.',
-           'Verifies peg positions before paving.',
-           'Reduces re‑work.']
-    },
-    { // 16
-      name:'Road alignment offset',
-      intro:'A baseline and offset observation create triangle <b>ABC</b> for tie set‑out.',
-      caption:'Alignment tie (to scale)',
-      why:['Places offset pegs accurately.',
-           'Checks visibility around obstructions.',
-           'Improves tie geometry ahead of pour.']
-    },
-    { // 17
-      name:'Site lighting stay',
-      intro:'A stay cable and two points define triangle <b>ABC</b> near a lighting column.',
-      caption:'Stay geometry (to scale)',
-      why:['Sets stay spread to avoid footpaths.',
-           'Confirms eye bolt ranges.',
-           'Checks clearance to signage.']
-    },
-    { // 18
-      name:'Span guying',
-      intro:'Guys and a span end form triangle <b>ABC</b>.',
-      caption:'Span guying (to scale)',
-      why:['Verifies guy angles within supplier limits.',
-           'Assures base plate edge distances.',
-           'Helps plan installation sequence.']
-    },
-    { // 19
-      name:'Sheet pile tie‑back',
-      intro:'A tie‑rod from a waling to an anchor and the toe form triangle <b>ABC</b>.',
-      caption:'Tie‑back triangle (to scale)',
-      why:['Confirms tie lengths vs design.',
-           'Reduces time near open excavations.',
-           'Helps avoid utilities behind the wall.']
-    },
-    { // 20
-      name:'Crane reach triangle',
-      intro:'The jib, hook path and a façade corner define triangle <b>ABC</b>.',
-      caption:'Crane reach (to scale)',
-      why:['Checks reach/compliance.',
-           'Positions lifting points.',
-           'Screens oversail risks.']
-    },
-    { // 21
-      name:'Portal frame fly‑brace',
-      intro:'A fly‑brace between rafter and column forms triangle <b>ABC</b>.',
-      caption:'Fly‑brace (to scale)',
-      why:['Confirms brace length against stock.',
-           'Positions hole centres in plates.',
-           'Ensures clearances to purlins.']
-    },
-  ];
-
-  function valueOf(T, key){ return T[key]; }
-
-  function givenText(T, givens){
-    const bits = givens.map(k=>{
-      const v = valueOf(T,k);
-      const s = (k==='A'||k==='B'||k==='C') ? `${to2(v)}°` : `${to2(v)} m`;
-      return `<b>${k} = ${s}</b>`;
-    });
-    return bits.join(', ');
-  }
-
-  function askPretty(asks){
-    return asks.map(k => (k==='A'||k==='B'||k==='C')? `angle <b>${k}</b>` : `side <b>${k}</b>`).join(' and ');
-  }
-
-  function labelsForFigure(T, givens){
-    const obj={a:null,b:null,c:null};
-    ['a','b','c'].forEach(k=>{
-      obj[k] = givens.includes(k) ? `${k} = ${to2(T[k])} m` : `${k} = ?`;
-    });
-    return obj;
-  }
-
-  function scenarioPredicate(def){
-    if(!def.ssa) return (T)=>notRight(T.A,T.B,T.C);
-    return (T)=>{
-      if(!notRight(T.A,T.B,T.C)) return false;
-      const {angle, opp, other} = def.ssa;
-      return ssaUnique(T[angle], T[opp], T[other]);
-    };
-  }
-
-  function makeScenario(def){
-    const T = triangleFor(scenarioPredicate(def));
-    const meta = SCENARIOS_META[def.num-1];
-    const labels = labelsForFigure(T, def.givens);
-    const fig = svgOblique(T.a, T.b, T.c, labels, meta.caption, pickTriClass());
-
-    const statementHTML = lines([
-      meta.intro,
-      `Known values: ${givenText(T, def.givens)}.`,
-      `Find ${askPretty(def.asks)}.`,
-      fig
-    ]);
-
-    const parts = def.asks.map(k=>({ prompt: NAMES[k], unit: UNITS[k], val: T[k] }));
-
-    return {
-      title: `${meta.name} — find ${def.asks.join(' and ')} from ${def.givens.join(', ')}`,
-      statementHTML,
-      whyHTML:`<ul>${meta.why.map(x=>`<li>${x}</li>`).join('')}</ul>`,
-      parts
-    };
-  }
-
-  /* ========= Pool & engine ========= */
-  const GENERATORS = scenarioDefs.map(def => ()=>makeScenario(def));
-
-  let QUESTIONS=[], BATCH=10, idx=0, score=0;
-  let nameStr='Student', mode='timed', timeLeft=0, timerId=null, target=0, correctSoFar=0, unlimited=false;
-  let currentQ=null;
-
-  const el = id=>document.getElementById(id);
-  const $qCard=el('qCard');
-  const $endCard=el('endCard');
-  const $qTitle=el('qTitle'), $statement=el('statement'), $whyHtml=el('whyHtml');
-  const $scoreTopVal=el('scoreTopVal'), $modeTxt=el('modeTxt'), $timeTxt=el('timeTxt');
-
-  function buildSet(n){
-    const gens=[...GENERATORS], qs=[];
-    for(let i=0;i<n;i++){
-      const g = gens.length ? gens.splice(Math.floor(Math.random()*gens.length),1)[0]
-                            : GENERATORS[Math.floor(Math.random()*GENERATORS.length)];
-      const q = g();
-      qs.push(q);
-    }
-    return qs;
-  }
-
-  function updateTop(){
-    el('whoName').textContent = nameStr || 'Student';
-    $modeTxt.textContent = mode==='timed' ? 'Timed' : 'Target';
-    $scoreTopVal.textContent = `${score} / ${idx}`;
-    $timeTxt.textContent = (mode==='timed' && !unlimited) ? secsToMMSS(timeLeft) : '—';
-  }
-
-  function startTimer(){
-    if(mode!=='timed' || unlimited) return;
-    clearInterval(timerId);
-    $timeTxt.textContent = secsToMMSS(timeLeft);
-    timerId = setInterval(()=>{
-      if(timeLeft <= 1){
-        timeLeft = 0;
-        $timeTxt.textContent = secsToMMSS(timeLeft);
-        clearInterval(timerId);
-        finish('Time’s up!');
-      }else{
-        timeLeft -= 1;
-        $timeTxt.textContent = secsToMMSS(timeLeft);
-      }
-    },1000);
-  }
-
-  function startWorksheet(){
-    BATCH = parseInt(document.getElementById('qtyInput').value,10);
-    QUESTIONS = buildSet(BATCH);
-    idx=0; score=0; correctSoFar=0;
-    $endCard.style.display='none';
-    $qCard.style.display='block';
-    renderQ();
-    updateTop();
-    if(window.MathJax && window.MathJax.typeset){ MathJax.typeset(); }
-    startTimer();
-  }
-
-  function finish(message='Well done!'){
-    clearInterval(timerId);
-    $qCard.style.display='none';
-    $endCard.style.display='block';
-    el('endMsg').textContent = message;
-    el('sumName').textContent = nameStr || 'Student';
-    el('sumMode').textContent = ($modeTxt.textContent);
-    el('sumScore').textContent = `${score} / ${idx}`;
-    const tSel = document.querySelector('input[name="tlimit"]:checked')?.value||'0';
-    const setTime = (mode==='timed' && !unlimited) ? parseInt(tSel,10) : 0;
-    const usedSecs = (mode==='timed' && !unlimited) ? (setTime - timeLeft) : 0;
-    el('sumTime').textContent = (mode==='timed' && !unlimited) ? secsToMMSS(Math.max(0,usedSecs)) : '—';
-  }
-
-  function progressText(){
-    return (mode==='timed') ? `Question ${idx+1}` : `Question ${idx+1} · Target ${correctSoFar}/${target}`;
-  }
-
-  function renderQ(){
-    const local = idx % QUESTIONS.length;
-    currentQ = QUESTIONS[local];
-    document.getElementById('progress').textContent = progressText();
-    $qTitle.textContent = currentQ.title;
-    $statement.innerHTML = currentQ.statementHTML;
-    $whyHtml.innerHTML = currentQ.whyHTML || '';
-    buildIORows(currentQ.parts);
-    document.getElementById('nextBtn').disabled = true;
-    $scoreTopVal.textContent = `${score} / ${idx}`;
-    if(window.MathJax && window.MathJax.typeset){ MathJax.typeset(); }
-  }
-
-  function checkCurrent(){
-    const parts = currentQ.parts;
-    let allOK=true;
-    parts.forEach((p,i)=>{
-      const inp = document.getElementById('ans-'+i);
-      const mark = document.getElementById('mark-'+i);
-      const fb = document.getElementById('fb-'+i);
-      const stu = parseNum(inp && inp.value);
-      if(isFinite(stu)) inp.value = to2(stu);
-      if(isFinite(stu) && within09(stu, p.val)){
-        mark.textContent='✓'; mark.className='marker ok'; fb.textContent='';
-      }else{
-        mark.textContent='✗'; mark.className='marker no';
-        fb.innerHTML = `Ans: <span class="ans">${to2(p.val)} ${unit(p.unit)}</span>`;
-        allOK=false;
-      }
-      inp.disabled=true;
-    });
-    if(allOK){ score++; correctSoFar++; }
-    $scoreTopVal.textContent = `${score} / ${idx+1}`;
-    document.getElementById('nextBtn').disabled=false;
-    if(mode==='target' && correctSoFar>=target){ finish('Target achieved!'); }
-  }
-
-  function nextQ(){
-    idx++;
-    if(idx % QUESTIONS.length === 0){
-      QUESTIONS = buildSet(BATCH);
-    }
-    renderQ();
-    updateTop();
-  }
-
-  // Events
-  document.getElementById('checkBtn').addEventListener('click', checkCurrent);
-  document.getElementById('nextBtn').addEventListener('click', nextQ);
-  document.getElementById('newBtn').addEventListener('click', ()=>{
-    clearInterval(timerId);
-    document.getElementById('startModal').style.display='flex';
-  });
-
-  document.addEventListener('keydown', (e)=>{
-    if(e.key==='Enter' && !document.getElementById('nextBtn').disabled){ nextQ(); }
-    else if(e.key==='Enter' && document.getElementById('nextBtn').disabled){ checkCurrent(); }
-  });
-
-  function updateModeFields(){
-    const modeEl = document.querySelector('input[name="mode"]:checked');
-    const modeVal = modeEl ? modeEl.value : 'timed';
-    document.getElementById('timedField').style.display = (modeVal==='timed') ? '' : 'none';
-    document.getElementById('targetField').style.display = (modeVal==='target') ? '' : 'none';
-  }
-  document.querySelectorAll('input[name="mode"]').forEach(r=>r.addEventListener('change', updateModeFields));
-
-  // START button
-  document.getElementById('startBtn').addEventListener('click', ()=>{
-    nameStr = document.getElementById('nameInput').value.trim() || 'Student';
-    const picked = document.querySelector('input[name="mode"]:checked');
-    mode = picked ? picked.value : 'timed';
-
-    if(mode==='timed'){
-      const sel = parseInt(document.querySelector('input[name="tlimit"]:checked')?.value||'1200',10);
-      unlimited = (sel===0);
-      timeLeft = unlimited ? 0 : sel;
-    }else{
-      unlimited = false;
-      timeLeft = 0;
-      target = clamp(parseInt(document.getElementById('targetInput').value,10)||10,1,1000000);
-    }
-
-    document.getElementById('modeTxt').textContent = mode==='timed' ? 'Timed' : 'Target';
-    document.getElementById('timeTxt').textContent = (mode==='timed' && !unlimited) ? secsToMMSS(timeLeft) : '—';
-
-    // Start
-    document.getElementById('startModal').style.display='none';
-    startWorksheet();
-  });
-
-  document.getElementById('restartBtn').addEventListener('click', ()=>{
-    clearInterval(timerId);
-    document.getElementById('startModal').style.display='flex';
-  });
-  updateModeFields();
-
-  // Fullscreen
-  document.getElementById('fsBtn').addEventListener('click', ()=>{
-    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
-    else{ document.exitFullscreen?.(); }
-  });
-  document.addEventListener('fullscreenchange', ()=>{
-    document.getElementById('fsBtn').textContent = document.fullscreenElement ? '✕ Exit full screen' : '⛶ Full screen';
-  });
-
-  // Show modal on load
-  document.getElementById('startModal').style.display='flex';
-});
-</script>
-</body>
-</html>
+const VERSION=1, LIMIT=1200, TOLERANCE=100, MAX_ATTEMPTS=3;
+const rad=d=>d*Math.PI/180, deg=r=>r*180/Math.PI;
+const sin=d=>Math.sin(rad(d)), cos=d=>Math.cos(rad(d));
+const round=(x,p=2)=>Math.round((x+Number.EPSILON)*10**p)/10**p;
+const cents=x=>Math.round((x+Number.EPSILON)*100);
+const fmt=x=>Number(x).toLocaleString('en-GB',{maximumFractionDigits:2});
+const fixed=x=>(cents(x)/100).toFixed(2);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clone=x=>JSON.parse(JSON.stringify(x));
+const keySide={A:'a',B:'b',C:'c'}, vertices=['A','B','C'], sides=['a','b','c'];
+const edge={a:'BC',b:'AC',c:'AB'};
+function rng(seed){let x=seed>>>0;return ()=>{x=(x+0x6D2B79F5)>>>0;let t=x;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return ((t^t>>>14)>>>0)/4294967296;};}
+function hash(a,b){let x=(a^Math.imul(b+1,0x9e3779b9))>>>0;x=Math.imul(x^x>>>16,0x85ebca6b);x=Math.imul(x^x>>>13,0xc2b2ae35);return (x^x>>>16)>>>0;}
+function angleFromSides(a,b,c){const v=(b*b+c*c-a*a)/(2*b*c);if(!Number.isFinite(v)||v< -1-1e-10||v>1+1e-10)throw Error('Invalid cosine input');return deg(Math.acos(Math.max(-1,Math.min(1,v))));}
+function validTriangle(t){return [...sides,...vertices].every(k=>Number.isFinite(t[k]))&&sides.every(k=>t[k]>0)&&vertices.every(k=>t[k]>=21&&t[k]<=136&&Math.abs(t[k]-90)>=2)&&Math.abs(t.A+t.B+t.C-180)<1e-7;}
+function solveSSS(g){const {a,b,c}=g;if(!(a>0&&b>0&&c>0&&a+b>c&&a+c>b&&b+c>a))throw Error('Triangle inequality failed');return {a,b,c,A:angleFromSides(a,b,c),B:angleFromSides(b,a,c),C:angleFromSides(c,a,b)};}
+function solve(g,branch='unique'){
+ const vs=vertices.filter(k=>g[k]!==undefined),ss=sides.filter(k=>g[k]!==undefined);
+ if(ss.length===3)return solveSSS(g);
+ if(vs.length===2&&ss.length===1){const t={...g},missing=vertices.find(k=>!vs.includes(k));t[missing]=180-g[vs[0]]-g[vs[1]];if(t[missing]<=0)throw Error('Invalid angle sum');const known=ss[0],scale=g[known]/sin(t[known.toUpperCase()]);sides.forEach(k=>t[k]=scale*sin(t[k.toUpperCase()]));return t;}
+ if(vs.length===1&&ss.length===2){const A=vs[0],a=A.toLowerCase();
+  if(g[a]===undefined){const [b,c]=ss,t={...g};t[a]=Math.sqrt(g[b]**2+g[c]**2-2*g[b]*g[c]*cos(g[A]));return solveSSS(t);}
+  const b=ss.find(k=>k!==a),B=b.toUpperCase(),C=vertices.find(k=>k!==A&&k!==B),c=C.toLowerCase();const v=g[b]*sin(g[A])/g[a];if(v<=0||v>1)throw Error('Invalid sine input');const acute=deg(Math.asin(v));
+  const options=[acute,180-acute].filter((v,i,a)=>i===0||Math.abs(v-a[0])>1e-9).filter(x=>g[A]+x<180-1e-9).map(x=>({...g,[B]:x,[C]:180-g[A]-x,[c]:g[a]*sin(180-g[A]-x)/sin(g[A])}));
+  if(branch==='obtuse'){const t=options.find(t=>t[B]>90);if(!t||options.length!==2)throw Error('Expected two candidates with an obtuse option');return {...t,alternatives:options.map(t=>t[B])};}
+  if(options.length!==1)throw Error('SSA was not unique');return options[0];
+ }
+ throw Error('Unsupported data pattern');
+}
+const CORE=[
+ [['a','b','c'],['A','B'],'cosine',2,'Roof bracing panel','The centre-lines of a roof bracing panel form triangle ABC.'],
+ [['a','b','c'],['B','C'],'cosine',2,'Cofferdam struts','A plan drawing of temporary struts has connection centres A, B and C.'],
+ [['a','b','c'],['A','C'],'cosine',2,'Survey control triangle','Three site survey marks A, B and C form a triangle in a horizontal plane.'],
+ [['a','b','C'],['c','A'],'cosine',3,'Guyed mast layout','In a plan view, a mast base and two ground anchors form triangle ABC. The distances shown are horizontal, not inclined cable lengths.'],
+ [['b','c','A'],['a','B'],'cosine',3,'Bridge tie geometry','Three fixing centres in a bridge model form triangle ABC in one plane.'],
+ [['a','c','B'],['b','C'],'cosine',3,'Retaining wall anchors','A plan of a retaining-wall anchor layout marks three connection centres A, B and C.'],
+ [['A','B','c'],['C','a'],'sine',2,'Traverse leg check','A site survey uses the measured baseline AB and the two internal angles at A and B.'],
+ [['B','C','a'],['A','b'],'sine',2,'Façade restraint','A planar façade restraint assembly has fixing centres A, B and C.'],
+ [['A','C','b'],['B','c'],'sine',2,'Pipe rack bracing','A pipe-rack bracing panel has three connection centres A, B and C in the same plane.'],
+ [['A','B','a'],['C','b'],'sine',3,'Roof bay diagonal','A drawing of a roof bracing bay gives two internal angles and the distance BC.'],
+ [['A','C','a'],['B','c'],'sine',3,'Crane tie-off geometry','A scale engineering model has three marked tie-off points A, B and C in one plane. Only the geometry is being calculated.'],
+ [['B','C','b'],['A','a'],'sine',3,'Temporary truss check','A temporary truss panel is modelled as the non-right-angled triangle ABC.'],
+ [['A','B','b'],['C','a'],'sine',3,'Edge protection ties','The connection centres of an edge-protection training model form triangle ABC.'],
+ [['A','C','c'],['B','a'],'sine',3,'Scaffold tie triangle','A scaffold-tie training drawing shows triangle ABC between fixing centres.'],
+ [['B','C','c'],['A','b'],'sine',3,'Survey offsets','A surveyor measures a baseline AB and two internal angles to locate a setting-out peg at C.'],
+ [['A','a','b'],['B','c'],'sine',4,'Road alignment offset','A road setting-out drawing gives one angle and two measured distances in triangle ABC.'],
+ [['A','a','c'],['C','b'],'sine',4,'Site lighting stay','A planar lighting-support model uses a straight stay between fixing centres in triangle ABC.'],
+ [['B','b','a'],['A','c'],'sine',4,'Span guying','A training drawing of a guying arrangement marks fixing centres A, B and C in one plane.'],
+ [['B','b','c'],['C','a'],'sine',4,'Sheet-pile tie-back','The centre-lines of a tie-back training model form triangle ABC.'],
+ [['C','c','a'],['A','b'],'sine',4,'Crane reach triangle','Three positions in a crane-layout model form triangle ABC in a horizontal plane.'],
+ [['C','c','b'],['B','a'],'sine',4,'Portal-frame fly-brace','A portal-frame brace drawing has connection centres A, B and C in one plane.']
+];
+const EXTRA=[
+ ['cos_side','Brace length from two sides and their included angle','cosine',1,null],
+ ['sine_side','Link length from an opposite side–angle pair','sine',1,null],
+ ['cos_angle','Internal angle from three measured sides','cosine',1,'cos_side'],
+ ['sine_angle','Unique angle from a side–angle pair','sine',1,'sine_side'],
+ ['cos_obtuse','Obtuse included angle','cosine',3,'cos_side'],
+ ['sine_obtuse','Use an explicitly obtuse configuration','sine',5,'sine_angle'],
+ ['exterior_cos','Convert an exterior angle before using cosine','cosine',4,'cos_obtuse'],
+ ['exterior_sine','Use a straight-line angle before using sine','sine',4,'sine_side'],
+ ['mixed_units','Convert metres and millimetres before calculation','cosine',3,'cos_side'],
+ ['cut_length','Distinguish centre distance and extra cutting length','cosine',4,'cos_side'],
+ ['perimeter','Find a complete frame perimeter','sine',3,'sine_side'],
+ ['opening_change','Change in linkage separation, not final separation','cosine',5,'cos_obtuse'],
+ ['joined_panels','Transfer a shared length between two triangles','mixed',5,'core05'],
+ ['max_angle','Identify the largest angle from the side lengths','cosine',5,'cos_angle'],
+ ['cable_total','Two stays plus allowances, excluding the baseline','sine',5,'perimeter']
+];
+const VARIANTS=[...EXTRA.map(([id,label,lane,tier,parent])=>({id,label,lane,tier,parent})),...CORE.map((d,i)=>({id:'core'+String(i+1).padStart(2,'0'),label:d[4]+' · '+d[1].join(' and '),lane:d[2],tier:d[3],parent:d[2]==='sine'?'sine_side':'cos_side',core:i}))];
+const BYID=Object.fromEntries(VARIANTS.map(v=>[v.id,v]));
+function generate(id,seed){
+ const spec=BYID[id];if(!spec)throw Error('Unknown variation');const r=rng(seed),int=(a,b)=>a+Math.floor(r()*(b-a+1)),pick=a=>a[int(0,a.length-1)];
+ let q;
+ for(let attempt=0;attempt<240;attempt++){
+  try{
+   let givens={},t,keys=[],unit='m',lines=[],ask='',known={},solution=[],hints=[],diagramExtra=null,triangles=[],meta={},parts=[];
+   const add=(label,value,u=unit)=>{if(!Number.isFinite(value)||value<1.05||value>2000000)throw Error('Unsuitable answer range');parts.push({label,unit:u,value,cents:cents(value),answer:fixed(value)});};
+   const getLength=(u='m')=>u==='mm'?int(12,70)*10:int(12,70)/2;
+   const shape=(max=120)=>{const A=int(28,80),B=int(28,80),C=180-A-B;if(C<25||C>max||[A,B,C].some(x=>Math.abs(x-90)<3))throw Error('Angle shape');return {A,B,C};};
+   const makeData=(ks,u='m',acute=false)=>{
+    let g={},vs=ks.filter(k=>vertices.includes(k)),ss=ks.filter(k=>sides.includes(k));
+    if(ss.length===3){const a=shape(acute?86:126),c=getLength(u),scale=c/sin(a.C);g={a:round(scale*sin(a.A),u==='mm'?0:1),b:round(scale*sin(a.B),u==='mm'?0:1),c};}
+    else if(vs.length===2){const sh=shape();vs.forEach(k=>g[k]=sh[k]);g[ss[0]]=getLength(u);}
+    else if(!ss.includes(vs[0].toLowerCase())){g[vs[0]]=pick([35,40,45,50,55,60,65,70,75,100,105,110,115]);ss.forEach(k=>g[k]=getLength(u));}
+    else{const A=vs[0],a=A.toLowerCase(),b=ss.find(k=>k!==a);g[A]=acute?int(28,55):pick([35,40,45,50,55,100,105,110]);g[b]=getLength(u);g[a]=round(g[b]*pick([1.1,1.2,1.3,1.4]),u==='mm'?0:1);}
+    return g;
+   };
+   const nameKey=k=>vertices.includes(k)?'Angle '+k:edge[k]+' ('+k+')';
+   if(spec.core!==undefined){const def=CORE[spec.core];givens=makeData(def[0]);t=solve(givens);keys=def[1];lines=[def[5],'All lengths refer to straight centre-to-centre distances.'];ask='Calculate '+keys.map(nameKey).join(' and ')+'.';}
+   else if(id==='cos_side'){unit='mm';const pivot=pick(vertices),others=sides.filter(k=>k!==pivot.toLowerCase());givens={[pivot]:pick([40,45,50,55,60,65,70,75]),[others[0]]:int(18,46)*10,[others[1]]:int(20,48)*10};t=solve(givens);keys=[pivot.toLowerCase()];lines=['A technician is setting out a triangular mounting bracket with hole centres A, B and C.','Two centre distances and the angle between them are given.'];ask='Calculate the missing centre distance '+edge[keys[0]]+'.';}
+   else if(id==='sine_side'){unit='mm';const knownSide=pick(sides),A=knownSide.toUpperCase(),B=pick(vertices.filter(k=>k!==A));const sh=shape(95);givens={[knownSide]:getLength(unit),[A]:sh[A],[B]:sh[B]};t=solve(givens);keys=[B.toLowerCase()];lines=['Three pivot centres in a planar linkage form triangle ABC.','The drawing gives one centre distance and two internal angles.'];ask='Calculate the link centre distance '+edge[keys[0]]+'.';}
+   else if(id==='cos_angle'){unit='mm';givens=makeData(sides,unit,true);t=solve(givens);keys=[pick(vertices)];lines=['A technician measures the three hole-centre distances on a triangular jig plate.'];ask='Calculate the internal angle at '+keys[0]+'.';}
+   else if(id==='sine_angle'){givens=makeData(['A','a','b'],'m',true);t=solve(givens);keys=['B'];lines=['A surveyor checks the triangle between two control marks and a new setting-out point.','The distances are horizontal measurements between the survey marks.'];ask='Calculate angle B.';}
+   else if(id==='cos_obtuse'){givens={b:getLength(),c:getLength(),A:int(100,128)};t=solve(givens);keys=['a'];lines=['Two straight members of a non-right-angled steel frame meet at A.','A third member is to link fixing centres B and C.'];ask='Calculate the centre-to-centre length BC.';}
+   else if(id==='sine_obtuse'){givens={A:int(26,40),a:int(16,30),b:int(31,40)};t=solve(givens,'obtuse');keys=['B','c'];lines=['A hinged support can be assembled in two geometrically possible positions.','The specified assembly has an obtuse internal angle at B (greater than 90°).','Use this condition to choose the required position.'];ask='Calculate angle B and the centre distance AB for that position.';meta.branch='obtuse';}
+   else if(id==='exterior_cos'){const E=int(48,77);givens={b:getLength(),c:getLength(),E};t=solve({b:givens.b,c:givens.c,A:180-E});keys=['a'];lines=['A frame member AB is extended in a straight line beyond A to point D.','The exterior angle DAC is given, not the internal angle BAC.'];ask='Calculate the missing brace distance BC.';meta.exterior={vertex:'A',along:'B',label:'D',value:E};}
+   else if(id==='exterior_sine'){const A=int(28,50),B=int(48,78);givens={A,c:getLength(),E:180-B};t=solve({A,B,c:givens.c});keys=['b'];lines=['On a setting-out drawing, the baseline AB continues beyond B to point D.','The exterior angle CBD is given.'];ask='Calculate the distance AC.';meta.exterior={vertex:'B',along:'A',label:'D',value:givens.E};}
+   else if(id==='mixed_units'){unit='mm';const bm=int(40,95)/100,cmm=int(24,70)*10,A=int(40,120);givens={b:bm,c:cmm,A};t=solve({b:bm*1000,c:cmm,A});keys=['a'];lines=['Two arms of an inspection jig meet at A.','AC is specified in metres, but AB and the required answer are in millimetres.'];ask='Calculate BC in millimetres.';meta.units={b:'m',c:'mm'};}
+   else if(id==='cut_length'){unit='mm';givens={b:getLength(unit),c:getLength(unit),A:int(38,118)};t=solve(givens);meta.allowance=int(2,7)*5;lines=['A brace runs between hole centres B and C on a triangular assembly.','The cutting schedule requires '+fmt(meta.allowance)+' mm of material beyond the hole centre at EACH end.','Ignore kerf and any other allowances for this calculation.'];ask='Calculate BC and the total blank length to cut.';keys=['a'];}
+   else if(id==='perimeter'){givens={A:int(35,65),B:int(38,68),c:getLength()};t=solve(givens);lines=['A fabricator is making a triangular frame ABC.','The required stock length is the sum of the three centre-line lengths.','Ignore joints, cutting losses and other allowances in this model.'];ask='Calculate the frame perimeter.';}
+   else if(id==='opening_change'){unit='mm';givens={b:getLength(unit),c:getLength(unit),A1:int(38,62),A2:int(100,125)};const t1=solve({b:givens.b,c:givens.c,A:givens.A1});t=solve({b:givens.b,c:givens.c,A:givens.A2});meta.initial=t1;lines=['Two fixed-length linkage arms AB and AC rotate about pivot A.','The included angle changes from '+fmt(givens.A1)+'° to '+fmt(givens.A2)+'°.'];ask='Calculate the INCREASE in separation between B and C, not the final separation.';}
+   else if(id==='joined_panels'){givens={a:getLength(),b:getLength(),C:int(40,110),DAB:int(32,57),DBA:int(35,62)};t=solve({a:givens.a,b:givens.b,C:givens.C});const t2=solve({A:givens.DAB,B:givens.DBA,c:t.c});if(!validTriangle(t2))throw Error('Second triangle range');meta.second=t2;lines=['Two triangular bracing panels ABC and ABD share the same straight member AB.','C and D lie on opposite sides of AB in the same plane.','Use triangle ABC to find the shared length before working in triangle ABD.'];ask='Calculate AB and then BD.';keys=['c'];}
+   else if(id==='max_angle'){givens=makeData(sides);t=solve(givens);lines=['A technician checks a triangular support made from three straight links.','The largest INTERNAL angle is needed for the layout record.'];ask='Calculate the largest internal angle of the triangle.';}
+   else if(id==='cable_total'){givens={A:int(30,62),B:int(33,66),c:getLength()};t=solve(givens);meta.allowance=int(5,25)*10;lines=['Two straight stays AC and BC link ground fixing centres A and B to a connector at C.','The three centres lie in one plane. Treat the stays as straight and ignore stretch.','Add '+fmt(meta.allowance)+' mm at EACH end of EACH stay for the specified end fittings.','The baseline AB is not a stay and must not be included.'];ask='Calculate the total length of cable to cut, in metres.';}
+   else throw Error('Unimplemented variation');
+   if(!validTriangle(t)||(meta.initial&&!validTriangle(meta.initial))||sides.some(k=>t[k]>150000))throw Error('Unsuitable geometry');
+   if(spec.tier===1&&vertices.some(k=>t[k]>116))throw Error('Starter too obtuse');
+   const mathematicalGivens={...givens};
+   if(id==='mixed_units')mathematicalGivens.b*=1000;
+   if(meta.exterior)mathematicalGivens[meta.exterior.vertex]=180-givens.E;
+   if(id==='opening_change')mathematicalGivens.A=givens.A2;
+   keys.forEach(k=>add(nameKey(k),t[k],vertices.includes(k)?'°':unit));
+   if(id==='cut_length')add('Blank length to cut',t.a+2*meta.allowance,'mm');
+   if(id==='perimeter')add('Frame perimeter',t.a+t.b+t.c);
+   if(id==='opening_change')add('Increase in separation',t.a-meta.initial.a,'mm');
+   if(id==='joined_panels')add('Distance BD',meta.second.a);
+   if(id==='max_angle'){const k=vertices.reduce((a,b)=>t[a]>t[b]?a:b);meta.largest=k;add('Largest internal angle',t[k],'°');}
+   if(id==='cable_total')add('Total cable length',t.a+t.b+4*meta.allowance/1000,'m');
+   const shown=(k,v,u)=>({key:k,label:vertices.includes(k)?'Angle '+k:sides.includes(k)?edge[k]+' ('+k+')':k,value:v,unit:u});
+   const givenList=Object.entries(givens).map(([k,v])=>shown(k,v,k==='E'?'°':k==='DAB'||k==='DBA'||k==='A1'||k==='A2'||vertices.includes(k)?'°':meta.units?.[k]||unit));
+   givenList.forEach(g=>{if(g.key==='E')g.label=meta.exterior.vertex==='A'?'Exterior ∠DAC':'Exterior ∠CBD';if(g.key==='DAB')g.label='∠DAB';if(g.key==='DBA')g.label='∠DBA';if(g.key==='A1')g.label='Initial angle at A';if(g.key==='A2')g.label='Final angle at A';});
+   const initialKnown=Object.fromEntries(givenList.filter(g=>sides.includes(g.key)||vertices.includes(g.key)).map(g=>[g.key,fmt(g.value)+(g.unit==='°'?'°':' '+g.unit)]));
+   if(id==='opening_change')initialKnown.A=fmt(givens.A2)+'°';
+   let targets=[...keys];if(id==='perimeter'||id==='cable_total')targets=['a','b'];if(id==='max_angle')targets=[];
+   triangles=[{...t,names:['A','B','C'],known:initialKnown,targets}];
+   if(meta.second)triangles.push({...meta.second,names:['A','B','D'],known:{A:fmt(givens.DAB)+'°',B:fmt(givens.DBA)+'°'},targets:['a']});
+   if(meta.initial)triangles=[{...meta.initial,names:['A','B','C'],known:{b:fmt(givens.b)+' mm',c:fmt(givens.c)+' mm',A:fmt(givens.A1)+'°'},targets:['a'],caption:'Initial position'},{...t,names:['A','B','C'],known:{b:fmt(givens.b)+' mm',c:fmt(givens.c)+' mm',A:fmt(givens.A2)+'°'},targets:['a'],caption:'Final position'}];
+   const mg=mathematicalGivens,vs=vertices.filter(k=>mg[k]!==undefined),ss=sides.filter(k=>mg[k]!==undefined);
+   let formulaPivot=keys.find(k=>vertices.includes(k))||keys[0]?.toUpperCase()||'C';
+   const f=x=>fmt(round(x,4));
+   if(ss.length===3){hints=['Use the cosine rule when all three sides are known.','The side opposite the requested angle goes in the subtraction term.','Use inverse cosine in DEG mode. Do not use the side-length answer as an angle.'];
+    const list=id==='max_angle'?[meta.largest]:keys; if(id==='max_angle')solution.push('The longest side is '+edge[meta.largest.toLowerCase()]+', so the largest angle is at '+meta.largest+'.');
+    list.forEach(A=>{const a=A.toLowerCase(),[b,c]=sides.filter(k=>k!==a);solution.push('cos '+A+' = ('+f(t[b])+'² + '+f(t[c])+'² − '+f(t[a])+'²) ÷ (2 × '+f(t[b])+' × '+f(t[c])+').',A+' = cos⁻¹(the unrounded ratio) ≈ '+fixed(t[A])+'°.');});}
+   else if(vs.length===2){hints=['Pair each side with the angle directly opposite it.','Use the sine rule. Find a missing third angle first when the known side faces it.','Rearrange to make the requested length the subject. Keep unrounded values until the end.'];const missing=vertices.find(k=>!vs.includes(k)),known=ss[0];solution.push(missing+' = 180° − '+fmt(mg[vs[0]])+'° − '+fmt(mg[vs[1]])+'° = '+fmt(t[missing])+'°.');
+    const list=keys.filter(k=>sides.includes(k));if(id==='perimeter'||id==='cable_total')list.push('a','b');[...new Set(list)].forEach(k=>solution.push(edge[k]+' = '+fmt(t[known])+' × sin '+fmt(t[k.toUpperCase()])+'° ÷ sin '+fmt(t[known.toUpperCase()])+'° ≈ '+fixed(t[k])+' '+unit+'.'));}
+   else if(vs.length===1&&mg[vs[0].toLowerCase()]===undefined){const A=vs[0],a=A.toLowerCase(),[b,c]=ss;formulaPivot=A;hints=['Use the cosine rule: the known angle is BETWEEN the two known sides.','Calculate the squared length first, including the −2bc cos A term.','Take the square root. Retain this unrounded length for any further calculation.'];solution.push(edge[a]+' = √('+fmt(t[b])+'² + '+fmt(t[c])+'² − 2 × '+fmt(t[b])+' × '+fmt(t[c])+' × cos '+fmt(t[A])+'°) ≈ '+fixed(t[a])+' '+unit+'.');keys.filter(k=>vertices.includes(k)).forEach(K=>{const other=sides.filter(k=>k!==K.toLowerCase());solution.push('Now use the unrounded sides: cos '+K+' = ('+other[0]+'² + '+other[1]+'² − '+K.toLowerCase()+'²) ÷ (2'+other.join('')+').',K+' ≈ '+fixed(t[K])+'°.');});}
+   else{const A=vs[0],a=A.toLowerCase(),b=ss.find(k=>k!==a),B=b.toUpperCase(),C=vertices.find(k=>k!==A&&k!==B),c=C.toLowerCase();hints=['Use the known opposite side–angle pair in the sine rule.','Rearrange to find the sine of the missing angle, then use inverse sine in DEG mode.',id==='sine_obtuse'?'Inverse sine gives an acute candidate. Use 180° minus that candidate for the specified obtuse position.':'Check the other possible sine angle against the triangle angle sum; these data have one valid triangle.'];solution.push('sin '+B+' = '+fmt(t[b])+' × sin '+fmt(t[A])+'° ÷ '+fmt(t[a])+'.');if(id==='sine_obtuse')solution.push('The acute candidate is '+fixed(180-t[B])+'°. The required angle is obtuse, so '+B+' = 180° − the unrounded acute candidate ≈ '+fixed(t[B])+'°.');else solution.push(B+' = sin⁻¹(the unrounded ratio) ≈ '+fixed(t[B])+'°. The supplementary candidate cannot fit with '+A+' in this triangle.');solution.push(C+' = 180° − '+A+' − '+B+' ≈ '+fixed(t[C])+'°.');if(keys.includes(c))solution.push(edge[c]+' = '+a+' × sin '+C+' ÷ sin '+A+' ≈ '+fixed(t[c])+' '+unit+'.');}
+   if(id==='mixed_units'){hints.unshift('Convert the metre measurement to millimetres BEFORE using the triangle rule.');solution.unshift(fmt(givens.b)+' m × 1000 = '+fmt(mg.b)+' mm.');}
+   if(meta.exterior){hints.unshift('An internal angle and the adjacent exterior angle on a straight line add to 180°.');solution.unshift('Internal angle '+meta.exterior.vertex+' = 180° − '+fmt(givens.E)+'° = '+fmt(t[meta.exterior.vertex])+'°.');}
+   if(id==='cut_length'){hints.push('There is an allowance at each of TWO ends.');solution.push('Blank length = unrounded BC + 2 × '+fmt(meta.allowance)+' ≈ '+parts.at(-1).answer+' mm.');}
+   if(id==='perimeter')solution.push('Perimeter = unrounded BC + unrounded AC + AB ≈ '+parts[0].answer+' m.');
+   if(id==='opening_change'){hints.push('Calculate both separations, then subtract initial from final.');solution=['Initial BC = √('+fmt(givens.b)+'² + '+fmt(givens.c)+'² − 2 × '+fmt(givens.b)+' × '+fmt(givens.c)+' × cos '+fmt(givens.A1)+'°) ≈ '+fixed(meta.initial.a)+' mm.',...solution,'Increase = unrounded final BC − unrounded initial BC ≈ '+parts[0].answer+' mm.'];}
+   if(id==='joined_panels'){hints=['First use the cosine rule in triangle ABC to calculate AB.','AB is the SAME length in triangle ABD. Find angle ADB from the two lower angles.','Use the sine rule in triangle ABD to find BD. Do not round AB between calculations.'];solution.push('∠ADB = 180° − '+fmt(givens.DAB)+'° − '+fmt(givens.DBA)+'° = '+fmt(meta.second.C)+'°.','BD = unrounded AB × sin '+fmt(givens.DAB)+'° ÷ sin '+fmt(meta.second.C)+'° ≈ '+fixed(meta.second.a)+' m.');}
+   if(id==='cable_total'){hints.push('There are two ends on each of two stays: FOUR allowances. Convert millimetres to metres.');solution.push('End allowances = 4 × '+fmt(meta.allowance)+' ÷ 1000 = '+fmt(4*meta.allowance/1000)+' m.','Total = unrounded AC + unrounded BC + all four allowances ≈ '+parts[0].answer+' m. Do not include AB.');}
+   const sanity=id==='opening_change'?'With fixed arms, increasing this included angle increases their separation. The requested answer is the change, not either separation.':id==='cut_length'?'The blank must be longer than the hole-centre distance by exactly the two specified allowances.':id==='cable_total'?'The total includes two stays and four end allowances, but does not include the baseline.':id==='sine_obtuse'?'The chosen angle at B must exceed 90°. Check that all three internal angles still total 180°.':'The three angles must total 180°. The longest side must face the largest angle, and any two sides together must exceed the third.';
+   const signature=JSON.stringify({id,givens,meta:{allowance:meta.allowance,branch:meta.branch},unit});
+   q={id,seed:seed>>>0,lane:spec.lane,tier:spec.tier,lines,givens:givenList,rawGivens:givens,unit,parts,triangles,hints,solution,sanity,formulaPivot,meta,ask,signature};
+   return q;
+  }catch(err){if(attempt===239)throw Error('Could not construct '+id+': '+err.message);}
+ }
+ throw Error('Generator failed');
+}
+function parse(raw){
+ let s=String(raw??'').trim().replace(/−/g,'-');
+ if(!s)return {ok:false,message:'Enter an answer before checking.'};
+ if(s.length>32)return {ok:false,message:'Check the size of the number.'};
+ if(s.includes(',')){if(!/^[+-]?\d{1,3}(?:,\d{3})+(?:\.\d+)?$/.test(s))return {ok:false,message:'Use a decimal point. Commas may only group thousands.'};s=s.replace(/,/g,'');}
+ if(!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(s))return {ok:false,message:'Enter a complete number, without a unit or calculation.'};
+ const negative=s.startsWith('-');s=s.replace(/^[+-]/,'');const [whole,frac='']=s.split('.');if((whole||'').length>8||frac.length>8)return {ok:false,message:'Use a manageable number with no more than eight decimal places.'};
+ let v=BigInt(whole||'0')*100n+BigInt((frac+'00').slice(0,2));if((frac[2]||'0')>='5')v++;if(negative)v=-v;
+ if(v>9999999999n||v< -9999999999n)return {ok:false,message:'Check the size of the number.'};
+ const n=Number(v);return {ok:true,cents:n,text:(n/100).toFixed(2)};
+}
+function mark(p,raw){const n=parse(raw);if(!n.ok)return {valid:false,correct:false,message:n.message};const difference=Math.abs(n.cents-p.cents);return {valid:true,correct:difference<=TOLERANCE,exact:difference===0,cents:n.cents,text:n.text,difference};}
+function step(raw,delta){const n=parse(raw||'0');return n.ok?((n.cents+delta)/100).toFixed(2):null;}
+function create(seed,recent=[]){return {version:VERSION,seed:seed>>>0,counter:0,created:new Date().toISOString(),records:[],current:null,level:1,highest:1,wins:[],failures:0,seen:{},queue:[],recent:recent.filter(x=>typeof x==='string').slice(-160),ended:false};}
+function select(s){const n=s.records.length;if(!n)return {id:'cos_side',reason:'start'};if(n===1)return {id:'sine_side',reason:'start'};
+ const last=s.records.at(-1),r=rng(hash(s.seed,s.counter+814));
+ const due=s.queue.findIndex(x=>x.due<=n);if(due>=0&&s.records.slice(-2).filter(x=>x.reason==='support').length<2)return {...s.queue.splice(due,1)[0],reason:'support'};
+ let pool=VARIANTS.filter(v=>v.tier<=s.level);
+ const last2=s.records.slice(-2).map(x=>BYID[x.id].lane);
+ if(last2.every(l=>l==='sine'))pool=pool.filter(v=>v.lane!=='sine');if(last2.every(l=>l==='cosine'))pool=pool.filter(v=>v.lane!=='cosine');
+ const upper=pool.filter(v=>v.tier===s.level&&!(s.seen[v.id]?.shown));const unseen=pool.filter(v=>!s.seen[v.id]?.shown);
+ if(upper.length&&n%3!==2)pool=upper;else if(unseen.length)pool=unseen;else {const top=pool.filter(v=>v.tier===s.level);if(top.length&&n%3!==2)pool=top;}
+ const other=pool.filter(v=>v.id!==last.id);if(other.length)pool=other;
+ const min=Math.min(...pool.map(v=>s.seen[v.id]?.shown||0));pool=pool.filter(v=>(s.seen[v.id]?.shown||0)===min);
+ return {id:pool[Math.floor(r()*pool.length)].id,reason:'practice'};
+}
+function next(s){if(s.ended||s.current?.status==='open')return false;if(s.records.length>=LIMIT){s.ended=true;return false;}const selected=select(s);let q;
+ for(let i=0;i<300;i++){q=generate(selected.id,hash(s.seed,++s.counter));if(!s.recent.includes(q.signature))break;if(i===299)throw Error('Fresh-question limit reached. Export the review and start a new round.');}
+ s.current={id:q.id,seed:q.seed,reason:selected.reason,status:'open',inputs:q.parts.map(()=>''),accepted:q.parts.map(()=>null),attempts:0,checks:[],help:false,outcome:null};s.recent.push(q.signature);s.recent=s.recent.slice(-160);return true;
+}
+const current=s=>s.current?generate(s.current.id,s.current.seed):null;
+function enqueue(s,id,delay){if(!id||s.queue.some(x=>x.id===id))return;s.queue.push({id,due:s.records.length+delay});s.queue=s.queue.slice(-8);}
+function close(s,outcome){const c=s.current;if(!c||s.ended||c.status!=='open')return false;c.status='closed';c.outcome=outcome;s.records.push(clone(c));const spec=BYID[c.id],z=s.seen[c.id]||(s.seen[c.id]={shown:0,independent:0,supported:0,revisit:0,last:0});z.shown++;z.last=s.records.length;z.lastOutcome=outcome;
+ if(outcome==='independent'){z.independent++;s.failures=0;if(spec.tier>=s.level)s.wins=[...new Set([...s.wins,c.id])];if(s.wins.length>=2&&s.level<5){s.level++;s.highest=Math.max(s.highest,s.level);s.wins=[];}}
+ else if(outcome==='supported'){z.supported++;s.failures=0;enqueue(s,c.id,4);}
+ else{z.revisit++;s.failures++;enqueue(s,spec.parent||(spec.lane==='sine'?'sine_side':'cos_side'),0);enqueue(s,c.id,4);if(s.failures>=2){s.level=Math.max(1,s.level-1);s.wins=[];s.failures=0;}}
+ return true;
+}
+function check(s,inputs){const c=s.current;if(s.ended||!c||c.status!=='open')return {kind:'locked'};const q=current(s);if(!Array.isArray(inputs))return {kind:'invalid',marks:[]};
+ const ms=q.parts.map((p,i)=>c.accepted[i]?{...c.accepted[i],valid:true,correct:true,locked:true}:mark(p,inputs[i]));
+ // Atomic validation: invalid/blank submissions neither consume attempts nor disclose other correctness.
+ if(ms.some(m=>!m.valid))return {kind:'invalid',marks:ms.map(m=>m.valid?{valid:true}:m)};
+ const key=JSON.stringify(ms.map(m=>m.cents));if(c.checks.includes(key))return {kind:'repeat'};
+ c.attempts++;c.checks.push(key);ms.forEach((m,i)=>{if(!c.accepted[i]){c.inputs[i]=m.text;if(m.correct)c.accepted[i]={...m,onCheck:c.attempts};}});
+ if(c.accepted.every(Boolean)){close(s,c.attempts===1&&!c.help?'independent':'supported');return {kind:'correct',marks:ms};}
+ if(c.attempts>=MAX_ATTEMPTS){close(s,'revisit');return {kind:'closed',marks:ms};}
+ return {kind:'wrong',marks:ms,remaining:MAX_ATTEMPTS-c.attempts};
+}
+function help(s){if(s.ended||s.current?.status!=='open')return false;s.current.help=true;return true;}
+const skip=s=>close(s,'skipped');
+function finish(s){if(s.ended)return false;s.ended=true;return true;}
+function resume(s){if(!s.ended||s.records.length>=LIMIT)return false;s.ended=false;return s.current?.status==='open'||next(s);}
+function stats(s){const rs=s.records,cs=s.current?.status==='open'?[s.current]:[];const accepted=[...rs,...cs].flatMap(c=>c.accepted).filter(Boolean);return {closed:rs.length,independent:rs.filter(c=>c.outcome==='independent').length,supported:rs.filter(c=>c.outcome==='supported').length,revisit:rs.filter(c=>!['independent','supported'].includes(c.outcome)).length,parts:accepted.length,exact:accepted.filter(a=>a.exact).length,tolerance:accepted.filter(a=>!a.exact).length,points:rs.reduce((n,c)=>n+(c.outcome==='independent'?2:c.outcome==='supported'?1:0),0)};}
+function example(q){for(let i=1;i<120;i++){const ex=generate(q.id,hash(q.seed,2400+i));if(ex.signature!==q.signature&&ex.parts.every((p,j)=>Math.abs(p.cents-q.parts[j].cents)>200))return ex;}return null;}
+function validate(s){try{if(!s||!s.current||s.version!==VERSION||!Number.isInteger(s.seed)||s.seed<0||s.seed>4294967295||!Number.isInteger(s.counter)||s.counter<0||s.counter>1000000||!Array.isArray(s.records)||s.records.length>LIMIT||!Number.isInteger(s.level)||s.level<1||s.level>5||!Number.isInteger(s.highest)||s.highest<s.level||s.highest>5||typeof s.ended!=='boolean'||!Array.isArray(s.wins)||s.wins.some(id=>!BYID[id])||!Number.isInteger(s.failures)||s.failures<0||s.failures>1||!Array.isArray(s.queue)||s.queue.some(x=>!BYID[x.id]||!Number.isInteger(x.due))||!Array.isArray(s.recent)||s.recent.length>160||s.recent.some(x=>typeof x!=='string')||!s.seen||typeof s.seen!=='object')return false;
+ const records=[...s.records,...(s.current?[s.current]:[])];for(const c of records){if(!BYID[c.id]||!Number.isInteger(c.seed)||!['open','closed'].includes(c.status)||!Array.isArray(c.inputs)||!Array.isArray(c.accepted)||!Array.isArray(c.checks)||!Number.isInteger(c.attempts)||c.attempts<0||c.attempts>3||c.checks.length!==c.attempts||typeof c.help!=='boolean')return false;const q=generate(c.id,c.seed);if(c.inputs.length!==q.parts.length||c.accepted.length!==q.parts.length)return false;
+  if(c.status==='closed'&&!['independent','supported','revisit','skipped'].includes(c.outcome))return false;
+  if(c.outcome==='independent'&&(c.help||c.attempts!==1))return false;
+  for(let i=0;i<q.parts.length;i++){const a=c.accepted[i];if(a){const m=mark(q.parts[i],c.inputs[i]);if(!m.valid||!m.correct||a.cents!==m.cents||a.exact!==m.exact||a.onCheck<1||a.onCheck>c.attempts)return false;}}
+  if(['independent','supported'].includes(c.outcome)&&!c.accepted.every(Boolean))return false;
+ }
+ if(s.records.some(c=>c.status!=='closed'))return false;
+ for(const [id,z] of Object.entries(s.seen)){if(!BYID[id]||!z||!['shown','independent','supported','revisit','last'].every(k=>Number.isInteger(z[k])&&z[k]>=0))return false;}
+ return true;
+ }catch{return false;}}
+return {VERSION,LIMIT,TOLERANCE,VARIANTS,BYID,generate,solve,solveSSS,validTriangle,parse,mark,step,create,next,current,check,help,skip,finish,resume,stats,example,validate,fmt,fixed,esc,hash};
+})();
+if(typeof module!=='undefined'&&module.exports)module.exports=TriangleEngine;
+
+/* Responsive SVG drawings from the same solved geometry as the displayed givens.
+   Labels contain givens or question marks, never concealed numerical answers. */
+const TriangleDrawings=(()=>{
+'use strict';
+const esc=TriangleEngine.esc;
+function n(x){if(!Number.isFinite(x))throw Error('Non-finite drawing coordinate');return Math.round(x*100)/100;}
+const xy=p=>p.map(n).join(','),line=(p,q,cls='tri-edge')=>`<line x1="${n(p[0])}" y1="${n(p[1])}" x2="${n(q[0])}" y2="${n(q[1])}" class="${cls}"/>`;
+const text=(p,t,cls='tri-label',rotate=null)=>`<text x="${n(p[0])}" y="${n(p[1])}" text-anchor="middle" dominant-baseline="central" class="${cls}"${rotate===null?'':` transform="rotate(${n(rotate)} ${n(p[0])} ${n(p[1])})"`}>${esc(t)}</text>`;
+const plus=(a,b)=>[a[0]+b[0],a[1]+b[1]],times=(a,s)=>[a[0]*s,a[1]*s],sub=(a,b)=>[a[0]-b[0],a[1]-b[1]],norm=a=>Math.hypot(...a),unit=a=>times(a,1/(norm(a)||1));
+function raw(t){const x=(t.b*t.b+t.c*t.c-t.a*t.a)/(2*t.c),y=Math.sqrt(Math.max(0,t.b*t.b-x*x));return [[0,0],[t.c,0],[x,y]];}
+function fit(points,w=760,h=410){const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]),minx=Math.min(...xs),maxx=Math.max(...xs),miny=Math.min(...ys),maxy=Math.max(...ys);const scale=Math.min((w-240)/(maxx-minx),(h-145)/(maxy-miny));return p=>[(w-(maxx-minx)*scale)/2+(p[0]-minx)*scale,(h-(maxy-miny)*scale)/2+(maxy-p[1])*scale];}
+function arc(V,P,Q,label,cls='tri-angle'){
+ const u=unit(sub(P,V)),v=unit(sub(Q,V)),bis=unit(plus(u,v)),dot=Math.max(-1,Math.min(1,u[0]*v[0]+u[1]*v[1]));
+ const theta=Math.acos(dot),exterior=cls.includes('tri-exterior'),r=exterior?Math.min(24,.6*norm(sub(P,V)),.6*norm(sub(Q,V))):Math.min(27,.2*norm(sub(P,V)),.2*norm(sub(Q,V)));
+ let a=Math.atan2(u[1],u[0]),b=Math.atan2(v[1],v[0]),d=b-a;while(d>Math.PI)d-=2*Math.PI;while(d< -Math.PI)d+=2*Math.PI;
+ const ps=Array.from({length:17},(_,i)=>plus(V,[r*Math.cos(a+d*i/16),r*Math.sin(a+d*i/16)]));
+ let out=`<polyline points="${ps.map(xy).join(' ')}" class="${cls}"/>`;
+ // Small angles use a short labelled leader inside the triangle instead of squeezed text.
+ const distance=exterior?44:theta<.60?Math.min(71,norm(sub(P,V))*.4,norm(sub(Q,V))*.4):Math.min(49,norm(sub(P,V))*.33,norm(sub(Q,V))*.33);
+ const pos=plus(V,times(bis,distance));
+ if(theta<.60)out+=line(plus(V,times(bis,r+3)),plus(V,times(bis,distance-12)),'tri-leader');
+ out+=text(pos,label,'tri-angle-label');return out;
+}
+function sideLabel(P,Q,centre,label){const mid=times(plus(P,Q),.5),d=unit(sub(Q,P));let normal=[-d[1],d[0]];if(normal[0]*(mid[0]-centre[0])+normal[1]*(mid[1]-centre[1])<0)normal=times(normal,-1);const pos=plus(mid,times(normal,25));let angle=Math.atan2(d[1],d[0])*180/Math.PI;if(angle>90)angle-=180;if(angle< -90)angle+=180;return text(pos,label,'tri-dimension',angle);}
+function single(t,exterior=null,caption=''){
+ const R=raw(t),more=[];if(exterior){const i=exterior.vertex==='A'?0:1,j=1-i;more.push(plus(R[i],times(unit(sub(R[i],R[j])),t.c*.38)));}
+ const project=fit([...R,...more]),p=R.map(project),g=times(p.reduce(plus),1/3);
+ let out=`<svg class="triangle-svg" viewBox="0 0 760 410" role="img" aria-label="${esc(caption||'Triangle ABC with given measurements and requested dimensions')}" xmlns="http://www.w3.org/2000/svg"><title>${esc(caption||'Non-right-angled engineering triangle')}</title><polygon points="${p.map(xy).join(' ')}" class="tri-face"/>`;
+ [[1,2,'a'],[0,2,'b'],[0,1,'c']].forEach(([i,j,k])=>{out+=line(p[i],p[j],t.targets.includes(k)?'tri-edge tri-target':'tri-edge');out+=sideLabel(p[i],p[j],g,k+(t.known[k]?' = '+t.known[k]:t.targets.includes(k)?' = ?':''));});
+ p.forEach((v,i)=>{const name=t.names[i],key='ABC'[i],u=unit(sub(p[(i+1)%3],v)),w=unit(sub(p[(i+2)%3],v)),outside=times(unit(plus(u,w)),-26);
+  out+=`<circle cx="${n(v[0])}" cy="${n(v[1])}" r="4" class="tri-node"/>`+text(plus(v,outside),name,'tri-vertex');
+  const label=t.known[key]||(t.targets.includes(key)?'?':null);if(label)out+=arc(v,p[(i+1)%3],p[(i+2)%3],label);
+ });
+ if(exterior){const i=exterior.vertex==='A'?0:1,Q=project(more[0]);out+=line(p[i],Q,'tri-extension');out+=text(plus(Q,[i===0?-16:16,0]),exterior.label,'tri-vertex');out+=arc(p[i],Q,p[2],TriangleEngine.fmt(exterior.value)+'°','tri-angle tri-exterior');}
+ return out+'</svg>';
+}
+function joined(q){const t=q.triangles[0],t2=q.triangles[1],rr=raw(t),d=raw(t2)[2];d[1]*=-1;const project=fit([...rr,d],760,500),p=rr.map(project),D=project(d),[A,B,C]=p;const G1=times(p.reduce(plus),1/3),G2=times([A,B,D].reduce(plus),1/3);
+ let out=`<svg class="triangle-svg joined-svg" viewBox="0 0 760 500" role="img" aria-label="Two panels ABC and ABD share member AB; C and D are on opposite sides" xmlns="http://www.w3.org/2000/svg"><title>Two connected triangular panels</title><polygon class="tri-face" points="${[A,B,C].map(xy).join(' ')}"/><polygon class="tri-face secondary-face" points="${[A,B,D].map(xy).join(' ')}"/>`;
+ [[A,C,'b = '+t.known.b,G1],[B,C,'a = '+t.known.a,G1],[A,D,'AD',G2],[B,D,'BD = ?',G2]].forEach(([P,Q,l,G])=>{out+=line(P,Q,l==='BD = ?'?'tri-edge tri-target':'tri-edge');out+=sideLabel(P,Q,G,l);});out+=line(A,B,'tri-edge tri-shared');out+=text(plus(times(plus(A,B),.5),[0,-13]),'AB = ? (shared)','tri-dimension');
+ [[A,'A',[-23,0]],[B,'B',[23,0]],[C,'C',[0,-23]],[D,'D',[0,23]]].forEach(([P,l,off])=>out+=text(plus(P,off),l,'tri-vertex'));
+ out+=arc(C,A,B,t.known.C)+arc(A,B,D,t2.known.A)+arc(B,A,D,t2.known.B);
+ return out+'</svg>';
+}
+function draw(q){if(q.id==='joined_panels')return joined(q);if(q.id==='opening_change')return `<div class="paired-diagrams">${q.triangles.map(t=>`<div><p class="diagram-caption">${t.caption}</p>${single(t,null,t.caption)}</div>`).join('')}</div>`;return single(q.triangles[0],q.meta.exterior);}
+return {draw,single,raw};
+})();
+if(typeof module!=='undefined'&&module.exports)module.exports=TriangleDrawings;
+
+const E=TriangleEngine,D=TriangleDrawings,$=id=>document.getElementById(id);
+const STORE='engineering-sine-cosine-v1',THEME='engineering-sine-cosine-theme',SIZE='engineering-sine-cosine-size',RECENT='engineering-sine-cosine-recent';
+let session=null,saved=null,storageOK=true,busy=false,confirmation=null,toastTimer=null,hintCount=1,reviewCount=1,zoom=100;
+function getStore(k){try{return localStorage.getItem(k);}catch{storageOK=false;return null;}}
+function putStore(k,v){try{localStorage.setItem(k,v);return true;}catch{storageOK=false;return false;}}
+function storageMessage(){if(!storageOK){$('storageNotice').hidden=false;$('storageNotice').textContent='This browser cannot save your practice. The activity still works. Export your results before closing it.';}$('saveNote').textContent=storageOK?'Progress saves on this device. No learner data is sent by this app to a server.':'Progress is available while this page stays open. Export before closing.';}
+function persist(){if(session){putStore(STORE,JSON.stringify(session));putStore(RECENT,JSON.stringify(session.recent));}storageMessage();}
+function randomSeed(){try{const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0];}catch{return ((Math.random()*4294967296)^Date.now())>>>0;}}
+function fresh(){let recent=[];try{recent=JSON.parse(getStore(RECENT)||'[]');if(!Array.isArray(recent))recent=[];}catch{}session=E.create(randomSeed(),recent);E.next(session);persist();renderQuestion(true);}
+function show(id){['startView','sessionView','resultsView'].forEach(x=>$(x).hidden=x!==id);$('teacherBtn').hidden=!session;}
+function open(id){if(!$(id).open)$(id).showModal();}
+function close(id){if($(id).open)$(id).close();}
+function toast(s){clearTimeout(toastTimer);$('toast').textContent=s;toastTimer=setTimeout(()=>$('toast').textContent='',3200);}
+function safe(action){if(busy)return;busy=true;try{action();}catch(e){$('errorNotice').hidden=false;$('errorNotice').textContent='The activity could not complete that action. Your last saved progress is retained. Reload to return to it.';console.error(e);}finally{busy=false;}}
+function confirm(text,fn,label='Continue'){confirmation=fn;$('confirmText').textContent=text;$('confirmYes').textContent=label;open('confirmDialog');}
+function fmtGiven(g){return E.fmt(g.value)+(g.unit==='°'?'°':' '+g.unit);}
+// On small screens remove unused SVG margins rather than shrinking the lettering.
+// Real geometry and dimensions are unchanged; the enlarged drawing keeps its full view.
+function fitMobileDrawings(root=document){
+ root.querySelectorAll('.triangle-svg').forEach(svg=>{
+  if(svg.closest('#largeDiagram'))return;
+  if(!svg.dataset.originalView)svg.dataset.originalView=svg.getAttribute('viewBox');
+  svg.setAttribute('viewBox',svg.dataset.originalView);
+  if(window.innerWidth>760||!svg.getBoundingClientRect().width)return;
+  const b=svg.getBBox();if(b.width>0&&b.height>0)svg.setAttribute('viewBox',[b.x-22,b.y-22,b.width+44,b.height+44].join(' '));
+ });
+}
+function questionHTML(q,tools=false){return `<div class="scenario-copy">${q.lines.map(l=>`<p>${E.esc(l)}</p>`).join('')}</div><div class="givens-grid" aria-label="Given measurements">${q.givens.map(g=>`<div class="given-item"><span>${E.esc(g.label)}</span><strong>${E.esc(fmtGiven(g))}</strong></div>`).join('')}</div><div class="diagram-box">${D.draw(q)}<div class="diagram-toolbar"><span>Schematic · calculate from the given values.</span>${tools?'<button class="quiet" id="enlargeBtn" type="button">Enlarge drawing ↗</button>':''}</div></div><p class="question-ask">${E.esc(q.ask)}</p>`;}
+const frac=(a,b)=>`<span class="frac"><span>${a}</span><span>${b}</span></span>`;
+function formulas(q){const A=q.formulaPivot||'C',a=A.toLowerCase(),[b,c]=['a','b','c'].filter(k=>k!==a);return `<div class="formula-lines"><div class="formula-line"><small>Sine rule · opposite pairs</small><div class="formula-math">${frac('<i>a</i>','sin <i>A</i>')} = ${frac('<i>b</i>','sin <i>B</i>')} = ${frac('<i>c</i>','sin <i>C</i>')}</div></div><div class="formula-line"><small>Cosine rule · find a side</small><div class="formula-math"><i>${a}</i><sup>2</sup> = <i>${b}</i><sup>2</sup> + <i>${c}</i><sup>2</sup> − 2<i>${b}${c}</i> cos <i>${A}</i></div></div><div class="formula-line"><small>Cosine rule · find an angle</small><div class="formula-math">cos <i>${A}</i> = ${frac(`<i>${b}</i><sup>2</sup> + <i>${c}</i><sup>2</sup> − <i>${a}</i><sup>2</sup>`,`2<i>${b}${c}</i>`)}</div></div></div><p class="formula-note">Use sin⁻¹ or cos⁻¹ to recover an angle.<br>A + B + C = 180°.<br>Letters may be cycled; each side faces its matching angle.${q.id==='joined_panels'?'<br>In ABD: AB faces angle D; BD faces ∠DAB.':''}</p>`;}
+function answerHTML(q){return q.parts.map((p,i)=>`<div class="answer-part"><label for="ans${i}">${q.parts.length>1?'('+String.fromCharCode(97+i)+') ':''}${E.esc(p.label)}</label><div class="number-shell"><input id="ans${i}" name="ans${i}" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" maxlength="32" aria-describedby="partFeedback${i}" placeholder=""><span>${E.esc(p.unit)}</span></div><div class="step-controls"><button type="button" data-step="-1" data-part="${i}" aria-label="Decrease ${E.esc(p.label)} by 0.01">−0.01</button><button type="button" data-step="1" data-part="${i}" aria-label="Increase ${E.esc(p.label)} by 0.01">+0.01</button></div><div class="part-feedback" id="partFeedback${i}" aria-live="polite"></div></div>`).join('');}
+function readInputs(){return E.current(session).parts.map((p,i)=>$('ans'+i).value);}
+function saveInputs(){if(session?.current?.status==='open'&&!session.ended){session.current.inputs=readInputs();persist();}}
+function metrics(){if(!session)return;const s=E.stats(session);$('partsCount').textContent=s.parts;$('firstCount').textContent=s.independent;$('pointsCount').textContent=s.points;}
+function feedback(s,kind=''){$('feedback').textContent=s;$('feedback').className='notice '+kind;$('feedback').hidden=!s;}
+function lock(){const c=session.current,q=E.current(session),closed=c.status==='closed';q.parts.forEach((p,i)=>{const accepted=c.accepted[i];$('ans'+i).value=c.inputs[i]??'';$('ans'+i).disabled=closed||!!accepted;document.querySelectorAll(`[data-part="${i}"]`).forEach(b=>b.disabled=closed||!!accepted);const f=$('partFeedback'+i);f.textContent=accepted?(accepted.exact?'✓ Accepted · matches the 2-decimal model.':'✓ Accepted within ±1.00 · tolerance recorded.') : '';f.className='part-feedback'+(accepted?' good':'');});$('checkBtn').hidden=closed;$('nextBtn').hidden=!closed;$('freshBtn').hidden=closed;$('helpBtn').disabled=closed;$('reviewMethodBtn').hidden=!(closed&&c.attempts>0);}
+function renderQuestion(focus=false){if(!session)return;if(session.ended){renderResults();return;}show('sessionView');const q=E.current(session);if(!q)return;const c=session.current;$('questionTitle').textContent='Question '+(session.records.length+(c.status==='open'?1:0));$('questionBody').innerHTML=questionHTML(q,true);$('formulaBody').innerHTML=formulas(q);$('answerFields').innerHTML=answerHTML(q);feedback('');lock();metrics();storageMessage();fitMobileDrawings($('questionBody'));
+ $('enlargeBtn').onclick=()=>{zoom=100;$('largeDiagram').innerHTML=D.draw(E.current(session));updateZoom();open('diagramDialog');};
+ if(c.status==='closed')feedback(c.outcome==='independent'?'Accepted on your first check. 2 practice points.':c.outcome==='supported'?'Accepted. 1 practice point; support or retries are recorded.':'This question is closed. Review the method, then take a fresh question.',c.outcome==='independent'||c.outcome==='supported'?'good':'warn');
+ else if(c.attempts)feedback('Your checked parts are kept. Recheck the remaining calculation'+(q.parts.length>1?'s':'')+'.','warn');
+ if(focus){$('questionTitle').focus({preventScroll:true});window.scrollTo({top:0,behavior:'auto'});}}
+function doCheck(){safe(()=>{if(!session||session.ended)return;const result=E.check(session,readInputs());if(result.kind==='locked')return;if(result.kind==='invalid'){feedback(result.marks.filter(x=>!x.valid).map(x=>x.message).join(' '),'bad');return;}if(result.kind==='repeat'){feedback('That is the same checked value. Rework the calculation before checking again.','warn');return;}persist();lock();metrics();if(result.kind==='correct'){feedback(session.current.outcome==='independent'?'Accepted on your first check. 2 practice points.':'Accepted. 1 practice point; support or retries are recorded.','good');$('nextBtn').focus({preventScroll:true});}
+ else if(result.kind==='closed'){feedback('Not all parts are correct yet. This question is closed with no question points. Review its method, then take a fresh question.','warn');$('nextBtn').focus({preventScroll:true});}
+ else{result.marks.forEach((m,i)=>{if(!m.correct){$('partFeedback'+i).textContent='Not within the acceptance band. Check the rule, units and angle.';$('partFeedback'+i).className='part-feedback bad';}});feedback(`${result.remaining} different ${result.remaining===1?'check remains':'checks remain'}. Accepted parts are kept. Method help is available.`,'bad');}});}
+function drawHints(){const q=E.current(session);$('hintSteps').innerHTML=q.hints.slice(0,hintCount).map(h=>`<li>${E.esc(h)}</li>`).join('');$('moreHintBtn').hidden=hintCount>=q.hints.length;}
+function showHelp(){safe(()=>{if(!session||!E.help(session))return;saveInputs();hintCount=1;drawHints();$('exampleDetails').open=false;$('exampleBody').innerHTML='';open('helpDialog');});}
+function showExample(){if(!$('exampleDetails').open||!session||session.current.status!=='open')return;safe(()=>{const ex=E.example(E.current(session));$('exampleBody').innerHTML=ex?`<div class="example-block"><p class="eyebrow">DIFFERENT NUMBERS · WORKED EXAMPLE</p><div class="question-text">${questionHTML(ex)}</div><div class="solution">${ex.solution.map(s=>`<p>${E.esc(s)}</p>`).join('')}<p><strong>${ex.parts.map(p=>E.esc(p.label)+': '+p.answer+' '+E.esc(p.unit)).join('<br>')}</strong></p></div></div>`:'<p>Use the hints above and ask your teacher for another example.</p>';fitMobileDrawings($('exampleBody'));});}
+function reviewMethod(){if(!session||session.current.status!=='closed'||!session.current.attempts)return;reviewCount=1;drawSolution();open('methodDialog');}
+function drawSolution(){const q=E.current(session);$('closedSteps').innerHTML=q.solution.slice(0,reviewCount).map(s=>`<p>${E.esc(s)}</p>`).join('');$('moreSolutionBtn').hidden=reviewCount>=q.solution.length;$('engineeringCheck').hidden=reviewCount<q.solution.length;$('engineeringCheck').textContent=q.sanity;}
+function updateZoom(){$('largeDiagram').style.width=zoom+'%';$('zoomValue').textContent=zoom+'%';$('zoomOutBtn').disabled=zoom<=100;$('zoomInBtn').disabled=zoom>=220;}
+function setTheme(t){document.body.dataset.theme=t;$('themeBtn').textContent=t==='dark'?'Light mode':'Dark mode';$('themeBtn').setAttribute('aria-pressed',String(t==='dark'));}
+function setSize(t){document.body.dataset.size=t;$('textBtn').textContent=t==='large'?'Standard text':'Larger text';$('textBtn').setAttribute('aria-pressed',String(t==='large'));}
+const outcome=o=>({independent:'Independent first check',supported:'Correct with help / retry',revisit:'Revisit this idea',skipped:'Skipped — no question points'}[o]||o);
+function renderResults(){show('resultsView');const t=E.stats(session);$('continueBtn').hidden=session.records.length>=E.LIMIT;$('resultsNote').textContent=`${t.closed} closed questions. ${t.parts} accepted parts, including ${t.tolerance} tolerance-only acceptances.`;$('metrics').innerHTML=[[t.independent,'Independent first check'],[t.supported,'With help / retry'],[t.exact,'Parts matching the model'],[t.tolerance,'Tolerance-only parts']].map(([n,s])=>`<div class="metric"><strong>${n}</strong><span>${s}</span></div>`).join('');$('resultsInfo').innerHTML=session.current?.status==='open'?'<p class="notice warn">Your current question is paused, not revealed. Keep practising returns to the same question and retains its attempts and help record.</p>':'<p class="help">Use the review to compare your paper method with the model. Opening a solution cannot change the score.</p>';
+ $('reviews').innerHTML=session.records.map((c,i)=>{const q=E.generate(c.id,c.seed);return `<details class="review-card"><summary><span>Question ${i+1}</span><span class="status">${outcome(c.outcome)}</span></summary><div class="review-body"><div class="question-text">${questionHTML(q)}</div><div class="your-entry">${q.parts.map((p,j)=>`${E.esc(p.label)}: ${E.esc(c.inputs[j]||'No answer')} ${E.esc(p.unit)}${c.accepted[j]?(c.accepted[j].exact?' · Model match':' · Within tolerance'):''}`).join('<br>')}<br>${c.attempts} valid checks · Help ${c.help?'used':'not used'}.</div>${c.attempts?`<div class="solution"><h3>Model answer</h3>${q.parts.map(p=>`<p>${E.esc(p.label)}: <strong>${p.answer} ${E.esc(p.unit)}</strong></p>`).join('')}<h3>Method</h3>${q.solution.map(s=>`<p>${E.esc(s)}</p>`).join('')}<div class="engineering-check">${E.esc(q.sanity)}</div></div>`:'<p class="help">No answer was checked. No solution is released for this skipped question.</p>'}</div></details>`;}).join('');$('resultsTitle').focus({preventScroll:true});window.scrollTo({top:0,behavior:'auto'});}
+function teacher(){if(!session)return;const t=E.stats(session);const covered=Object.keys(session.seen).length;const recent=session.records.slice(-6),bad=recent.filter(c=>['skipped','revisit'].includes(c.outcome)).length;const status=bad>=3?'A check-in would help':session.current?.help&&session.current.status==='open'?'Using method support':t.independent?'Building confidence':'Getting started';
+ $('teacherSummary').innerHTML=`<div class="teacher-intro"><div><h3>${status}</h3><p>Working demand ${session.level} of 5 · Highest reached ${session.highest}.<br>${covered} of ${E.VARIANTS.length} templates encountered. Coverage is not mastery.</p></div></div><div class="teacher-metrics">${[[t.independent,'Independent questions'],[t.supported,'Help / retry questions'],[t.exact,'Model-matching parts'],[t.tolerance,'Tolerance-only parts']].map(([n,l])=>`<div><strong>${n}</strong><span>${l}</span></div>`).join('')}</div><p class="help">Current question: ${session.current?.attempts||0} checked attempts; help ${session.current?.help?'used':'not opened'}.<br>Recent outcomes: ${recent.length?recent.map(c=>E.esc(outcome(c.outcome))).join(' · '):'No completed questions yet.'}<br>No numerical answer key is shown here.</p>`;
+ $('teacherTable').innerHTML=`<div class="table-scroll"><table class="teacher-table"><thead><tr><th>Practice template</th><th>First check</th><th>Help / retry</th><th>Revisit</th><th>Recent evidence</th></tr></thead><tbody>${E.VARIANTS.map(v=>{const z=session.seen[v.id]||{independent:0,supported:0,revisit:0};const st=z.lastOutcome==='independent'?'independent':z.lastOutcome==='supported'?'supported':z.lastOutcome?'revisit':'unseen';return `<tr><td>${E.esc(v.label)}</td><td>${z.independent}</td><td>${z.supported}</td><td>${z.revisit}</td><td><span class="tag ${st}">${st==='unseen'?'Not yet checked':st==='independent'?'Independent':st==='supported'?'Supported':'Revisit'}</span></td></tr>`;}).join('')}</tbody></table></div>`;open('teacherDialog');}
+function exportResults(){if(!session?.ended)return;const rows=[['Question','Template','Outcome','Checks','Help','Part','Unit','Submitted','Acceptance','Model (closed attempted only)']];session.records.forEach((c,i)=>{const q=E.generate(c.id,c.seed);q.parts.forEach((p,j)=>rows.push([i+1,E.BYID[c.id].label,outcome(c.outcome),c.attempts,c.help?'Yes':'No',p.label,p.unit,c.inputs[j]||'',c.accepted[j]?(c.accepted[j].exact?'Model match':'Within tolerance'):'Not accepted',c.attempts?p.answer:'Not released']));});const cell=x=>{let s=String(x);if(/^[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';};const content='\ufeff'+rows.map(row=>row.map(cell).join(',')).join('\r\n');const a=document.createElement('a'),url=URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8'}));a.href=url;a.download='engineering-sine-cosine-results.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);toast('Results export prepared.');}
+$('startBtn').addEventListener('click',()=>safe(()=>{if(saved){session=saved;saved=null;session.ended?renderResults():renderQuestion(true);}else fresh();}));
+$('answerForm').addEventListener('submit',e=>{e.preventDefault();doCheck();});
+$('nextBtn').addEventListener('click',()=>safe(()=>{if(session&&(E.next(session)||session.ended)){persist();renderQuestion(true);}}));
+$('helpBtn').addEventListener('click',showHelp);$('moreHintBtn').addEventListener('click',()=>{hintCount++;drawHints();});$('exampleDetails').addEventListener('toggle',showExample);
+$('reviewMethodBtn').addEventListener('click',reviewMethod);$('moreSolutionBtn').addEventListener('click',()=>{reviewCount++;drawSolution();});
+$('freshBtn').addEventListener('click',()=>{if(session?.current?.status!=='open')return;confirm('Move to a fresh question? This one closes with no question points. Its solution will not be shown unless you checked an answer.',()=>{saveInputs();E.skip(session);persist();E.next(session);persist();renderQuestion(true);},'Take a fresh question');});
+$('finishBtn').addEventListener('click',()=>{if(!session||session.ended)return;saveInputs();E.finish(session);persist();renderResults();});
+$('continueBtn').addEventListener('click',()=>safe(()=>{if(E.resume(session)){persist();renderQuestion(true);}}));
+$('newBtn').addEventListener('click',()=>confirm('Start a new round with fresh numbers and a fresh score? Export this review first if you need a copy.',fresh,'Start a new round'));
+$('teacherBtn').addEventListener('click',teacher);$('toleranceBtn').addEventListener('click',()=>open('toleranceDialog'));$('aboutBtn').addEventListener('click',()=>open('aboutDialog'));
+$('themeBtn').addEventListener('click',()=>{setTheme(document.body.dataset.theme==='dark'?'light':'dark');putStore(THEME,document.body.dataset.theme);});
+$('textBtn').addEventListener('click',()=>{setSize(document.body.dataset.size==='large'?'normal':'large');putStore(SIZE,document.body.dataset.size);});
+$('exportBtn').addEventListener('click',exportResults);
+$('printBtn').addEventListener('click',()=>{if(!session?.ended)return;const ds=[...document.querySelectorAll('#reviews details')],state=ds.map(d=>d.open);ds.forEach(d=>d.open=true);const restore=()=>{ds.forEach((d,i)=>d.open=state[i]);window.removeEventListener('afterprint',restore);};window.addEventListener('afterprint',restore);window.print();});
+$('zoomOutBtn').addEventListener('click',()=>{zoom=Math.max(100,zoom-20);updateZoom();});$('zoomInBtn').addEventListener('click',()=>{zoom=Math.min(220,zoom+20);updateZoom();});$('zoomResetBtn').addEventListener('click',()=>{zoom=100;updateZoom();$('diagramViewport').scrollTo(0,0);});
+$('confirmYes').addEventListener('click',()=>{const fn=confirmation;confirmation=null;close('confirmDialog');if(fn)safe(fn);});
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.close==='confirmDialog')confirmation=null;close(b.dataset.close);}));$('confirmDialog').addEventListener('cancel',()=>confirmation=null);
+$('answerFields').addEventListener('input',saveInputs);
+$('answerFields').addEventListener('click',e=>{const b=e.target.closest('[data-step]');if(!b||b.disabled||session?.current.status!=='open')return;const i=$('ans'+b.dataset.part),s=E.step(i.value,Number(b.dataset.step));if(s===null){toast('Enter a valid number before using the 0.01 controls.');return;}i.value=s;i.focus();saveInputs();});
+$('answerFields').addEventListener('keydown',e=>{if(!['ArrowUp','ArrowDown'].includes(e.key)||!e.target.matches('input')||session?.current.status!=='open'||e.target.disabled)return;const s=E.step(e.target.value,e.key==='ArrowUp'?1:-1);if(s!==null){e.preventDefault();e.target.value=s;saveInputs();}});
+let drawingResize;window.addEventListener('resize',()=>{clearTimeout(drawingResize);drawingResize=setTimeout(()=>fitMobileDrawings(),100);});
+$('reviews').addEventListener('toggle',()=>fitMobileDrawings($('reviews')),true);
+window.addEventListener('pagehide',persist);document.addEventListener('visibilitychange',()=>{if(document.hidden)persist();});
+window.addEventListener('error',()=>{$('errorNotice').hidden=false;$('errorNotice').textContent='The activity encountered a problem. Reload to return to the last saved practice.';});
+setTheme(getStore(THEME)==='dark'?'dark':'light');setSize(getStore(SIZE)==='large'?'large':'normal');
+try{const raw=getStore(STORE);if(raw){const s=JSON.parse(raw);if(E.validate(s)){saved=s;$('startNote').textContent='Saved practice found on this device. Start returns to it with your attempts and score retained.';}else{$('storageNotice').hidden=false;$('storageNotice').textContent='The saved session could not be restored. Start will create a fresh round.';}}}catch{$('storageNotice').hidden=false;$('storageNotice').textContent='The saved session could not be read. Start will create a fresh round.';}
+storageMessage();
+
+})();</script>
+</body></html>
